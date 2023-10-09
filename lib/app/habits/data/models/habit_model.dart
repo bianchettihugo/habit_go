@@ -1,5 +1,7 @@
-import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
+
+import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 
 part 'habit_model.g.dart';
 
@@ -45,5 +47,28 @@ class HabitModel {
       progress: progress,
       reminder: reminder,
     );
+  }
+
+  @override
+  bool operator ==(covariant HabitModel other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.title == title &&
+        other.icon == icon &&
+        other.color == color &&
+        other.repeat == repeat &&
+        listEquals(other.progress, progress) &&
+        other.reminder == reminder;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        icon.hashCode ^
+        color.hashCode ^
+        repeat.hashCode ^
+        reminder.hashCode;
   }
 }

@@ -39,7 +39,26 @@ class HabitEntity {
         icon.hashCode ^
         color.hashCode ^
         repeat.hashCode ^
-        progress.hashCode ^
         reminder.hashCode;
+  }
+
+  HabitEntity copyWith({
+    int? id,
+    String? title,
+    String? icon,
+    String? color,
+    int? repeat,
+    List<int>? progress,
+    bool? reminder,
+  }) {
+    return HabitEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      color: color ?? this.color,
+      repeat: repeat ?? this.repeat,
+      progress: progress ?? this.progress,
+      reminder: reminder ?? this.reminder,
+    );
   }
 }
