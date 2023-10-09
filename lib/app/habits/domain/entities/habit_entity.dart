@@ -39,7 +39,6 @@ class HabitEntity {
         icon.hashCode ^
         color.hashCode ^
         repeat.hashCode ^
-        progress.hashCode ^
         reminder.hashCode;
   }
 }
