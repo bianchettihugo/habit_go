@@ -34,3 +34,7 @@ class DatabaseFailure extends Failure {
 class CorruptedDataFailure extends Failure {
   const CorruptedDataFailure();
 }
+
+class InvalidDataFailure extends Failure {
+  const InvalidDataFailure();
+}
