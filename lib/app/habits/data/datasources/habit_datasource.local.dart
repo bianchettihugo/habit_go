@@ -3,16 +3,16 @@ import 'package:habit_go/app/habits/data/models/habit_model.dart';
 import 'package:isar/isar.dart';
 
 class LocalHabitDatasource extends HabitDatasource {
-  final Isar? _isar;
+  final Isar _isar;
 
   LocalHabitDatasource({
-    Isar? isar,
+    required Isar isar,
   }) : _isar = isar;
 
   @override
   Future<HabitModel> createHabit(HabitModel habit) async {
-    await _isar?.writeTxn(() async {
-      return await _isar?.habitModels.put(habit) ?? -1;
+    await _isar.writeTxn(() async {
+      return await _isar.habitModels.put(habit);
     });
 
     return habit;
@@ -20,17 +20,17 @@ class LocalHabitDatasource extends HabitDatasource {
 
   @override
   Future<List<HabitModel>> readHabits() async {
-    List<HabitModel>? items;
-    await _isar?.txn(() async {
-      items = await _isar?.habitModels.where().findAll();
+    List<HabitModel> items = [];
+    await _isar.txn(() async {
+      items = await _isar.habitModels.where().findAll();
     });
-    return items ?? [];
+    return items;
   }
 
   @override
   Future<HabitModel> updateHabit(HabitModel habit) async {
-    await _isar?.writeTxn(() async {
-      return await _isar?.habitModels.put(habit) ?? -1;
+    await _isar.writeTxn(() async {
+      return await _isar.habitModels.put(habit);
     });
 
     return habit;
@@ -38,8 +38,8 @@ class LocalHabitDatasource extends HabitDatasource {
 
   @override
   Future<HabitModel> deleteHabit(HabitModel habit) async {
-    await _isar?.writeTxn(() async {
-      await _isar?.habitModels.delete(habit.id ?? -1);
+    await _isar.writeTxn(() async {
+      await _isar.habitModels.delete(habit.id ?? -1);
     });
 
     return habit;
