@@ -20,3 +20,27 @@ final habitEntity = HabitEntity(
   progress: [2, 3, 2],
   reminder: true,
 );
+
+final habitData1 = {
+  'id': null,
+  'name': 'title',
+  'repeat': '4',
+  'days': [2, 3, 2],
+  'notify': true,
+  'type': {
+    'icon': 'ic-close',
+    'color': 'primary',
+  },
+};
+
+final habitData2 = {
+  'id': '0',
+  'name': 'title',
+  'repeat': '4',
+  'days': [2, 3, 2],
+  'notify': true,
+  'type': {
+    'icon': 'ic-close',
+    'color': 'primary',
+  },
+};

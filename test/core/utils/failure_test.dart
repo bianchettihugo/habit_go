@@ -12,5 +12,6 @@ void main() {
     expect(failure1.hashCode, failure2.hashCode);
     expect(const DatabaseFailure(), isA<Failure>());
     expect(const CorruptedDataFailure(), isA<Failure>());
+    expect(const InvalidDataFailure(), isA<Failure>());
   });
 }
