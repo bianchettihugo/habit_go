@@ -20,9 +20,9 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
     required Map<String, dynamic> data,
   }) async {
     final rules = [
-      data['id'] == null || int.tryParse(data['id']) != null,
+      data['id'] == null || int.tryParse(data['id'].toString()) != null,
       data['name'] != null && data['name'].toString().isNotEmpty,
-      data['repeat'] != null && int.tryParse(data['repeat']) != null,
+      data['repeat'] != null && int.tryParse(data['repeat'].toString()) != null,
       data['days'] != null && data['days'] is List<int>,
       data['notify'] != null && data['notify'] is bool,
       data['type'] != null && data['type'] is Map,
@@ -34,16 +34,19 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
       return Result.failure(const InvalidDataFailure());
     }
 
+    final id = int.tryParse(data['id']?.toString() ?? '');
     final habit = HabitEntity(
-      id: int.tryParse(data['id']),
+      id: id,
       title: data['name'].toString(),
-      repeat: int.tryParse(data['repeat']) ?? 1,
+      repeat: int.tryParse(data['repeat'].toString()) ?? 1,
       progress: data['days'],
       reminder: data['notify'],
       icon: data['type']['icon'].toString(),
       color: data['type']['color'].toString(),
     );
 
-    return _repository.createHabit(habit);
+    return id != null
+        ? _repository.updateHabit(habit)
+        : _repository.createHabit(habit);
   }
 }
