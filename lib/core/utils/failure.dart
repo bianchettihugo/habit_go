@@ -14,10 +14,6 @@ class Failure {
     this.statusCode = 0,
   });
 
-  factory Failure.fromException(Exception exception, [String module = '']) {
-    return Failure(message: exception.toString(), module: module);
-  }
-
   @override
   bool operator ==(covariant Failure other) {
     if (identical(this, other)) return true;

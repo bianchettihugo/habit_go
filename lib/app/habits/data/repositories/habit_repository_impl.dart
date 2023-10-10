@@ -46,7 +46,7 @@ class HabitRepositoryImpl extends HabitRepository {
   @override
   Future<Result<HabitEntity>> updateHabit(HabitEntity habit) {
     return _handle<HabitEntity>(() async {
-      final result = await habitDatasource.createHabit(
+      final result = await habitDatasource.updateHabit(
         HabitModel.fromEntity(habit),
       );
       return Result.success(result.toEntity());
