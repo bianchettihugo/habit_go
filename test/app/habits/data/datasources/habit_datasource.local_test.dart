@@ -19,7 +19,7 @@ void main() {
   test('habits/data/datasources - should create an habit', () async {
     final result = await datasource.createHabit(habitModel);
     final habit = await isar.txn(() async {
-      return await isar.habitModels.where().idEqualTo(0).findFirst();
+      return isar.habitModels.where().idEqualTo(0).findFirst();
     });
     expect(result, habitModel);
     expect(habit, habitModel);
@@ -33,18 +33,20 @@ void main() {
   });
 
   test('habits/data/datasources - should update an habit', () async {
-    await datasource.updateHabit(HabitModel.fromEntity(
-      habitEntity.copyWith(color: 'yellow'),
-    ));
+    await datasource.updateHabit(
+      HabitModel.fromEntity(
+        habitEntity.copyWith(color: 'yellow'),
+      ),
+    );
     final habit = await isar.txn(() async {
-      return await isar.habitModels.where().idEqualTo(0).findFirst();
+      return isar.habitModels.where().idEqualTo(0).findFirst();
     });
     expect(habit?.color, 'yellow');
   });
 
   test('habits/data/datasources - should delete an habit', () async {
     await datasource.createHabit(habitModel);
-    await datasource.deleteHabit(HabitModel(id: null));
+    await datasource.deleteHabit(HabitModel());
     await datasource.deleteHabit(habitModel);
     final result = await datasource.readHabits();
     expect(result, isEmpty);

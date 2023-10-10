@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:isar/isar.dart';
-
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:isar/isar.dart';
 
 part 'habit_model.g.dart';
 
