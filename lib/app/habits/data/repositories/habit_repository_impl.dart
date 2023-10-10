@@ -35,7 +35,7 @@ class HabitRepositoryImpl extends HabitRepository {
     return _handle<List<HabitEntity>>(() async {
       final list = <HabitEntity>[];
       final result = await habitDatasource.readHabits();
-      for (var element in result) {
+      for (final element in result) {
         list.add(element.toEntity());
       }
 

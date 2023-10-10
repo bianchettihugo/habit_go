@@ -12,7 +12,7 @@ class LocalHabitDatasource extends HabitDatasource {
   @override
   Future<HabitModel> createHabit(HabitModel habit) async {
     await _isar.writeTxn(() async {
-      return await _isar.habitModels.put(habit);
+      return _isar.habitModels.put(habit);
     });
 
     return habit;
@@ -20,7 +20,7 @@ class LocalHabitDatasource extends HabitDatasource {
 
   @override
   Future<List<HabitModel>> readHabits() async {
-    List<HabitModel> items = [];
+    var items = <HabitModel>[];
     await _isar.txn(() async {
       items = await _isar.habitModels.where().findAll();
     });
@@ -30,7 +30,7 @@ class LocalHabitDatasource extends HabitDatasource {
   @override
   Future<HabitModel> updateHabit(HabitModel habit) async {
     await _isar.writeTxn(() async {
-      return await _isar.habitModels.put(habit);
+      return _isar.habitModels.put(habit);
     });
 
     return habit;
