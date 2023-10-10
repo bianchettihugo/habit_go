@@ -1,3 +1,8 @@
+import 'package:isar/isar.dart';
+
+typedef DatabaseError = IsarError;
+typedef DatabaseIndexError = IsarUniqueViolationError;
+
 class Failure {
   final String message;
   final String module;

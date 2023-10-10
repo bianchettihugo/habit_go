@@ -4,7 +4,6 @@ import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
-import 'package:isar/isar.dart';
 
 class HabitRepositoryImpl extends HabitRepository {
   final HabitDatasource habitDatasource;
@@ -59,9 +58,9 @@ class HabitRepositoryImpl extends HabitRepository {
       return await f();
     } on TypeError catch (_) {
       return Result.failure(const CorruptedDataFailure());
-    } on IsarUniqueViolationError catch (_) {
+    } on DatabaseIndexError catch (_) {
       return Result.failure(const DatabaseFailure());
-    } on IsarError catch (_) {
+    } on DatabaseError catch (_) {
       return Result.failure(const DatabaseFailure());
     } catch (e) {
       return Result.failure(const Failure());
