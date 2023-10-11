@@ -22,28 +22,33 @@ const HabitModelSchema = CollectionSchema(
       name: r'color',
       type: IsarType.string,
     ),
-    r'icon': PropertySchema(
+    r'hashCode': PropertySchema(
       id: 1,
+      name: r'hashCode',
+      type: IsarType.long,
+    ),
+    r'icon': PropertySchema(
+      id: 2,
       name: r'icon',
       type: IsarType.string,
     ),
     r'progress': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'progress',
       type: IsarType.byteList,
     ),
     r'reminder': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'reminder',
       type: IsarType.bool,
     ),
     r'repeat': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'repeat',
       type: IsarType.long,
     ),
     r'title': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'title',
       type: IsarType.string,
     )
@@ -82,11 +87,12 @@ void _habitModelSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.color);
-  writer.writeString(offsets[1], object.icon);
-  writer.writeByteList(offsets[2], object.progress);
-  writer.writeBool(offsets[3], object.reminder);
-  writer.writeLong(offsets[4], object.repeat);
-  writer.writeString(offsets[5], object.title);
+  writer.writeLong(offsets[1], object.hashCode);
+  writer.writeString(offsets[2], object.icon);
+  writer.writeByteList(offsets[3], object.progress);
+  writer.writeBool(offsets[4], object.reminder);
+  writer.writeLong(offsets[5], object.repeat);
+  writer.writeString(offsets[6], object.title);
 }
 
 HabitModel _habitModelDeserialize(
@@ -97,12 +103,12 @@ HabitModel _habitModelDeserialize(
 ) {
   final object = HabitModel(
     color: reader.readStringOrNull(offsets[0]) ?? '',
-    icon: reader.readStringOrNull(offsets[1]) ?? '',
+    icon: reader.readStringOrNull(offsets[2]) ?? '',
     id: id,
-    progress: reader.readByteList(offsets[2]) ?? const [],
-    reminder: reader.readBoolOrNull(offsets[3]) ?? false,
-    repeat: reader.readLongOrNull(offsets[4]) ?? 1,
-    title: reader.readStringOrNull(offsets[5]) ?? '',
+    progress: reader.readByteList(offsets[3]) ?? const [],
+    reminder: reader.readBoolOrNull(offsets[4]) ?? false,
+    repeat: reader.readLongOrNull(offsets[5]) ?? 1,
+    title: reader.readStringOrNull(offsets[6]) ?? '',
   );
   return object;
 }
@@ -117,14 +123,16 @@ P _habitModelDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset) ?? '') as P;
     case 1:
-      return (reader.readStringOrNull(offset) ?? '') as P;
+      return (reader.readLong(offset)) as P;
     case 2:
-      return (reader.readByteList(offset) ?? const []) as P;
+      return (reader.readStringOrNull(offset) ?? '') as P;
     case 3:
-      return (reader.readBoolOrNull(offset) ?? false) as P;
+      return (reader.readByteList(offset) ?? const []) as P;
     case 4:
-      return (reader.readLongOrNull(offset) ?? 1) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 5:
+      return (reader.readLongOrNull(offset) ?? 1) as P;
+    case 6:
       return (reader.readStringOrNull(offset) ?? '') as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -349,6 +357,60 @@ extension HabitModelQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'color',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition> hashCodeEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      hashCodeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition> hashCodeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition> hashCodeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'hashCode',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -912,6 +974,18 @@ extension HabitModelQuerySortBy
     });
   }
 
+  QueryBuilder<HabitModel, HabitModel, QAfterSortBy> sortByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.asc);
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterSortBy> sortByHashCodeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.desc);
+    });
+  }
+
   QueryBuilder<HabitModel, HabitModel, QAfterSortBy> sortByIcon() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'icon', Sort.asc);
@@ -972,6 +1046,18 @@ extension HabitModelQuerySortThenBy
   QueryBuilder<HabitModel, HabitModel, QAfterSortBy> thenByColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'color', Sort.desc);
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterSortBy> thenByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.asc);
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterSortBy> thenByHashCodeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.desc);
     });
   }
 
@@ -1045,6 +1131,12 @@ extension HabitModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<HabitModel, HabitModel, QDistinct> distinctByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'hashCode');
+    });
+  }
+
   QueryBuilder<HabitModel, HabitModel, QDistinct> distinctByIcon(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1089,6 +1181,12 @@ extension HabitModelQueryProperty
   QueryBuilder<HabitModel, String, QQueryOperations> colorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'color');
+    });
+  }
+
+  QueryBuilder<HabitModel, int, QQueryOperations> hashCodeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'hashCode');
     });
   }
 
