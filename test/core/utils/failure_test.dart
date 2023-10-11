@@ -13,5 +13,6 @@ void main() {
     expect(const DatabaseFailure(), isA<Failure>());
     expect(const CorruptedDataFailure(), isA<Failure>());
     expect(const InvalidDataFailure(), isA<Failure>());
+    expect(const NoDataFailure(), isA<Failure>());
   });
 }

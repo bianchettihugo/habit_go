@@ -38,3 +38,7 @@ class CorruptedDataFailure extends Failure {
 class InvalidDataFailure extends Failure {
   const InvalidDataFailure();
 }
+
+class NoDataFailure extends Failure {
+  const NoDataFailure();
+}
