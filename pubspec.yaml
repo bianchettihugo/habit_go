@@ -29,6 +29,7 @@ dependencies:
   animations: ^2.0.8
   shared_preferences: ^2.2.1
   queue: ^3.1.0+2
+  dataform: ^1.0.3
 
 dev_dependencies:
   flutter_test:

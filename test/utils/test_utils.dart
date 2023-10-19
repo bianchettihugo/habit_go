@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:habit_go/core/themes/light_theme.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'mocks.dart';
@@ -21,10 +22,7 @@ extension WidgetTesterConfig on WidgetTester {
           Locale('en'),
         ],
         locale: const Locale('en'),
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: const Color(0xff6D67D0),
-        ),
+        theme: LightTheme().theme,
         home: Builder(
           builder: (context) {
             return Scaffold(body: widget);
