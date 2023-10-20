@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:habit_go/core/utils/extensions.dart';
 
 class CustomInputDecorator {
+  static BoxDecoration containerDecoration({
+    required BuildContext context,
+  }) {
+    return BoxDecoration(
+      color: context.theme.canvasColor,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(
+        color: context.themeColors.grey,
+        width: 2,
+      ),
+    );
+  }
+
   static InputDecoration decoration({
     required BuildContext context,
     bool error = false,
