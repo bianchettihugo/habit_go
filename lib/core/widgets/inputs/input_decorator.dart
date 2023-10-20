@@ -48,6 +48,13 @@ class CustomInputDecorator {
         fontWeight: FontWeight.w600,
         color: context.theme.colorScheme.error,
       ),
+      suffixIconColor: MaterialStateColor.resolveWith(
+        (states) => states.contains(MaterialState.focused)
+            ? (error
+                ? context.theme.colorScheme.error
+                : context.theme.primaryColor)
+            : (error ? context.themeColors.red75 : context.theme.hintColor),
+      ),
     );
   }
 }
