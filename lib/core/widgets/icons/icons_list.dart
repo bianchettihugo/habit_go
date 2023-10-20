@@ -7,12 +7,12 @@ import 'package:habit_go/core/widgets/icons/feather_icons_icons.dart';
 import 'package:habit_go/core/widgets/inputs/text_input.dart';
 
 class IconsList extends StatefulWidget {
-  final Function(String) onLongTap;
-  final Function(String) onTap;
+  final Function(String)? onLongTap;
+  final Function(String)? onTap;
 
   const IconsList({
-    required this.onLongTap,
-    required this.onTap,
+    this.onLongTap,
+    this.onTap,
     super.key,
   });
 
@@ -95,10 +95,10 @@ class _IconsListState extends State<IconsList> {
                       style: context.text.bodyMedium,
                     ),
                     onTap: () {
-                      widget.onTap(_getSelectedIcon(index));
+                      widget.onTap?.call(_getSelectedIcon(index));
                     },
                     onLongPress: () {
-                      widget.onLongTap(_getSelectedIcon(index));
+                      widget.onLongTap?.call(_getSelectedIcon(index));
                     },
                   );
                 },
