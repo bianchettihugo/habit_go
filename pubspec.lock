@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  dataform:
+    dependency: "direct main"
+    description:
+      name: dataform
+      sha256: "427abd3e636608a6cdc761f5aa1b7cce41feed5d56d2a2b6334adddf8aba74ab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   fake_async:
     dependency: transitive
     description:
