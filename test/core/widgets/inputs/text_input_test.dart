@@ -35,7 +35,7 @@ void main() {
     expect(find.text('Test input'), findsOneWidget);
   });
 
-  testWidgets('core/widgets/inputs - text input funcitonal test',
+  testWidgets('core/widgets/inputs - text input functional test',
       (tester) async {
     await tester.pumpWidgetWithApp(
       TextInput(
