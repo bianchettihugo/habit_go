@@ -55,4 +55,32 @@ void main() {
   tearDownAll(() {
     isar.close(deleteFromDisk: true);
   });
+
+  test('habits/data/datasources - should reset habits progress', () async {
+    await datasource.createHabit(habitModel);
+    await datasource.resetHabitProgress(habitModel, 0);
+    final result = await datasource.readHabits();
+    expect(result[0].progress[0], habitModel.originalProgress[0]);
+  });
+
+  test('habits/data/datasources - should clear habits progress', () async {
+    await datasource.createHabit(
+      habitModel.copyWith(
+        originalProgress: [1, 1],
+        progress: [3, 3],
+      ),
+    );
+    await datasource.createHabit(
+      habitModel.copyWith(
+        id: 2,
+        progress: [1, 1],
+        originalProgress: [0, 0],
+      ),
+    );
+
+    await datasource.clearHabitsProgress();
+    final result = await datasource.readHabits();
+    expect(result[0].progress, [1, 1]);
+    expect(result[1].progress, [0, 0]);
+  });
 }

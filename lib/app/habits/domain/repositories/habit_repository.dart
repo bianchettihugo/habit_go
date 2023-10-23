@@ -9,4 +9,8 @@ abstract class HabitRepository {
   Future<Result<HabitEntity>> updateHabit(HabitEntity habit);
 
   Future<Result<HabitEntity>> deleteHabit(HabitEntity habit);
+
+  Future<Result<HabitEntity>> resetHabitProgress(HabitEntity habit, int index);
+
+  Future<Result<bool>> clearHabitsProgress();
 }

@@ -6,6 +6,7 @@ class HabitEntity {
   final String icon;
   final String color;
   final int repeat;
+  final List<int> originalProgress;
   final List<int> progress;
   final bool reminder;
 
@@ -15,6 +16,7 @@ class HabitEntity {
     required this.icon,
     required this.color,
     required this.repeat,
+    required this.originalProgress,
     required this.progress,
     required this.reminder,
   });
@@ -28,6 +30,7 @@ class HabitEntity {
         other.icon == icon &&
         other.color == color &&
         other.repeat == repeat &&
+        listEquals(other.originalProgress, originalProgress) &&
         listEquals(other.progress, progress) &&
         other.reminder == reminder;
   }
@@ -49,6 +52,7 @@ class HabitEntity {
     String? color,
     int? repeat,
     List<int>? progress,
+    List<int>? originalProgress,
     bool? reminder,
   }) {
     return HabitEntity(
@@ -58,6 +62,7 @@ class HabitEntity {
       color: color ?? this.color,
       repeat: repeat ?? this.repeat,
       progress: progress ?? this.progress,
+      originalProgress: originalProgress ?? this.originalProgress,
       reminder: reminder ?? this.reminder,
     );
   }

@@ -39,6 +39,7 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
       id: id,
       title: data['name'].toString(),
       repeat: int.tryParse(data['repeat'].toString()) ?? 1,
+      originalProgress: data['days'],
       progress: data['days'],
       reminder: data['notify'],
       icon: data['type']['icon'].toString(),

@@ -11,12 +11,14 @@ void main() {
     color: 'primary',
     repeat: 4,
     progress: [2, 3, 2],
+    originalProgress: [2, 3, 2],
     reminder: true,
   );
 
   test('habits/data/models - should create a new model', () async {
     expect(model, habitModel);
     expect(model.hashCode, habitModel.hashCode);
+    expect(model.copyWith(), habitModel);
   });
 
   test('habits/data/models - should create a new model from an entity',

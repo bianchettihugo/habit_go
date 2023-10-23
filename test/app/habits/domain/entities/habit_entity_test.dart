@@ -10,6 +10,7 @@ void main() {
     icon: 'ic-close',
     color: 'primary',
     repeat: 4,
+    originalProgress: [2, 3, 2],
     progress: [2, 3, 2],
     reminder: true,
   );
@@ -30,6 +31,7 @@ void main() {
         color: 'yellow',
         repeat: 4,
         progress: [2, 3, 2],
+        originalProgress: [2, 3, 2],
         reminder: true,
       ),
     );
@@ -42,6 +44,7 @@ void main() {
         color: 'yellow',
         repeat: 4,
         progress: [0, 0],
+        originalProgress: [0, 0],
         reminder: true,
       ),
     );

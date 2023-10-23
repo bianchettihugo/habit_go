@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:habit_go/app/habits/data/models/habit_model.dart';
+import 'package:habit_go/app/habits/habits_module.dart';
+import 'package:habit_go/app/habits/presentation/pages/habits_page.dart';
+import 'package:habit_go/app/progress/data/models/progress_model.dart';
+import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/themes/light_theme.dart';
-import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [HabitModelSchema, ProgressModelSchema],
+    directory: dir.path,
+  );
+
+  Dependency.register<Isar>(isar);
+
+  HabitsModule.init();
+
   runApp(const MyApp());
 }
 
@@ -25,16 +43,6 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              CalendarWidget(),
-            ],
-          ),
-        ),
-      ),
-    );
+    return const HabitsPage();
   }
 }
