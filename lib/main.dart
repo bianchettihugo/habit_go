@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_go/core/themes/light_theme.dart';
-import 'package:habit_go/core/widgets/calendar/calendar_item.dart';
+import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,16 +25,12 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CalendarItem(
-                date: DateTime.now(),
-                onTap: () {},
-              ),
+              CalendarWidget(),
             ],
           ),
         ),

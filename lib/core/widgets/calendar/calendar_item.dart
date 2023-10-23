@@ -37,7 +37,7 @@ class _CalendarItemState extends State<CalendarItem>
     _controller = widget.controller ??
         CalendarItemController(
           vsync: this,
-          duration: const Duration(milliseconds: 140),
+          duration: const Duration(milliseconds: 100),
         );
     _animation = Tween<double>(
       begin: 0,
@@ -116,7 +116,7 @@ class _CalendarItemState extends State<CalendarItem>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 60),
+                  duration: const Duration(milliseconds: 40),
                   style: context.text.bodyMedium!.copyWith(
                     color: primary
                         ? context.theme.colorScheme.onPrimary
@@ -129,7 +129,7 @@ class _CalendarItemState extends State<CalendarItem>
                   ),
                 ),
                 AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 60),
+                  duration: const Duration(milliseconds: 40),
                   style: context.text.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: primary
