@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_go/app/habits/data/models/habit_model.dart';
 import 'package:habit_go/app/habits/habits_module.dart';
 import 'package:habit_go/app/habits/presentation/pages/habits_page.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/progress/data/models/progress_model.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/themes/light_theme.dart';
@@ -43,6 +46,18 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HabitsPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HabitsBloc>(
+          create: (BuildContext context) =>
+              Dependency.get<HabitsBloc>()..add(HabitLoadEvent()),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          return const HabitsPage();
+        },
+      ),
+    );
   }
 }

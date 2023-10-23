@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
+import 'package:habit_go/app/habits/presentation/widgets/habit_error_widget.dart';
 import 'package:habit_go/core/utils/extensions.dart';
 import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
 
@@ -90,22 +95,42 @@ class _HabitsPageState extends State<HabitsPage> {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: PageView.builder(
-                  itemCount: 7,
-                  physics: const BouncingScrollPhysics(),
-                  controller: _controller,
-                  onPageChanged: (value) => _onPageChanged(
-                    value,
-                    swipeRight: _controller.position.userScrollDirection !=
-                        ScrollDirection.reverse,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Center(
-                      child: Text('Page $index'),
+              BlocConsumer<HabitsBloc, HabitState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state.status == HabitStatus.loading) {
+                    return const Expanded(
+                      child: Center(child: CircularProgressIndicator()),
                     );
-                  },
-                ),
+                  }
+
+                  if (state.status == HabitStatus.error) {
+                    return Expanded(
+                      child: HabitErrorWidget(
+                        onTryAgain: () =>
+                            context.read<HabitsBloc>().add(HabitLoadEvent()),
+                      ),
+                    );
+                  }
+
+                  return Expanded(
+                    child: PageView.builder(
+                      itemCount: 7,
+                      physics: const BouncingScrollPhysics(),
+                      controller: _controller,
+                      onPageChanged: (value) => _onPageChanged(
+                        value,
+                        swipeRight: _controller.position.userScrollDirection !=
+                            ScrollDirection.reverse,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Center(
+                          child: Text('Page $index'),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),
