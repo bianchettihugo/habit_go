@@ -10,6 +10,7 @@ final habitModel = HabitModel(
   color: 'primary',
   repeat: 4,
   progress: [2, 3, 2],
+  originalProgress: [2, 3, 2],
   reminder: true,
 );
 
@@ -20,6 +21,7 @@ final habitEntity = HabitEntity(
   color: 'primary',
   repeat: 4,
   progress: [2, 3, 2],
+  originalProgress: [2, 3, 2],
   reminder: true,
 );
 

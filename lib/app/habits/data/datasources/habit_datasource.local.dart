@@ -44,4 +44,36 @@ class LocalHabitDatasource extends HabitDatasource {
 
     return habit;
   }
+
+  @override
+  Future<HabitModel> resetHabitProgress(HabitModel habit, int index) async {
+    final list = [...habit.progress];
+    list[index] = habit.originalProgress[index];
+
+    await _isar.writeTxn(() async {
+      await _isar.habitModels.put(
+        habit.copyWith(
+          progress: list,
+        ),
+      );
+    });
+
+    return habit.copyWith(
+      progress: list,
+    );
+  }
+
+  @override
+  Future<void> clearHabitsProgress() async {
+    await _isar.writeTxn(() async {
+      final items = await _isar.habitModels.where().findAll();
+      for (final element in items) {
+        await _isar.habitModels.put(
+          element.copyWith(
+            progress: [...element.originalProgress],
+          ),
+        );
+      }
+    });
+  }
 }

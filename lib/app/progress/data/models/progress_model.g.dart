@@ -22,8 +22,13 @@ const ProgressModelSchema = CollectionSchema(
       name: r'doneActions',
       type: IsarType.intList,
     ),
-    r'totalActions': PropertySchema(
+    r'hashCode': PropertySchema(
       id: 1,
+      name: r'hashCode',
+      type: IsarType.long,
+    ),
+    r'totalActions': PropertySchema(
+      id: 2,
       name: r'totalActions',
       type: IsarType.intList,
     )
@@ -60,7 +65,8 @@ void _progressModelSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeIntList(offsets[0], object.doneActions);
-  writer.writeIntList(offsets[1], object.totalActions);
+  writer.writeLong(offsets[1], object.hashCode);
+  writer.writeIntList(offsets[2], object.totalActions);
 }
 
 ProgressModel _progressModelDeserialize(
@@ -72,7 +78,7 @@ ProgressModel _progressModelDeserialize(
   final object = ProgressModel(
     doneActions: reader.readIntList(offsets[0]) ?? const [],
     id: id,
-    totalActions: reader.readIntList(offsets[1]) ?? const [],
+    totalActions: reader.readIntList(offsets[2]) ?? const [],
   );
   return object;
 }
@@ -87,6 +93,8 @@ P _progressModelDeserializeProp<P>(
     case 0:
       return (reader.readIntList(offset) ?? const []) as P;
     case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
       return (reader.readIntList(offset) ?? const []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -334,6 +342,62 @@ extension ProgressModelQueryFilter
     });
   }
 
+  QueryBuilder<ProgressModel, ProgressModel, QAfterFilterCondition>
+      hashCodeEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QAfterFilterCondition>
+      hashCodeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QAfterFilterCondition>
+      hashCodeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'hashCode',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QAfterFilterCondition>
+      hashCodeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'hashCode',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<ProgressModel, ProgressModel, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -541,10 +605,36 @@ extension ProgressModelQueryLinks
     on QueryBuilder<ProgressModel, ProgressModel, QFilterCondition> {}
 
 extension ProgressModelQuerySortBy
-    on QueryBuilder<ProgressModel, ProgressModel, QSortBy> {}
+    on QueryBuilder<ProgressModel, ProgressModel, QSortBy> {
+  QueryBuilder<ProgressModel, ProgressModel, QAfterSortBy> sortByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QAfterSortBy>
+      sortByHashCodeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.desc);
+    });
+  }
+}
 
 extension ProgressModelQuerySortThenBy
     on QueryBuilder<ProgressModel, ProgressModel, QSortThenBy> {
+  QueryBuilder<ProgressModel, ProgressModel, QAfterSortBy> thenByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QAfterSortBy>
+      thenByHashCodeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'hashCode', Sort.desc);
+    });
+  }
+
   QueryBuilder<ProgressModel, ProgressModel, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -564,6 +654,12 @@ extension ProgressModelQueryWhereDistinct
       distinctByDoneActions() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'doneActions');
+    });
+  }
+
+  QueryBuilder<ProgressModel, ProgressModel, QDistinct> distinctByHashCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'hashCode');
     });
   }
 
@@ -587,6 +683,12 @@ extension ProgressModelQueryProperty
       doneActionsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'doneActions');
+    });
+  }
+
+  QueryBuilder<ProgressModel, int, QQueryOperations> hashCodeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'hashCode');
     });
   }
 

@@ -8,4 +8,8 @@ abstract class HabitDatasource {
   Future<HabitModel> updateHabit(HabitModel habit);
 
   Future<HabitModel> deleteHabit(HabitModel habit);
+
+  Future<HabitModel> resetHabitProgress(HabitModel habit, int index);
+
+  Future<void> clearHabitsProgress();
 }

@@ -20,6 +20,7 @@ void main() {
     color: 'primary',
     repeat: 4,
     progress: [2, 3, 2],
+    originalProgress: [2, 3, 2],
     reminder: true,
   );
 

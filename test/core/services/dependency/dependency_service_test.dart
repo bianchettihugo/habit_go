@@ -16,4 +16,12 @@ void main() {
     final str = Dependency.get<int>();
     expect(str, 10);
   });
+
+  test(
+      'core/services - should be able to register and retrieve a factory dependency',
+      () async {
+    Dependency.registerFactory<bool>(true);
+    final isA = Dependency.get<bool>();
+    expect(isA, true);
+  });
 }

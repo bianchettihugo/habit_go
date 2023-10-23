@@ -11,6 +11,7 @@ class HabitModel {
   String icon;
   String color;
   int repeat;
+  List<byte> originalProgress;
   List<byte> progress;
   bool reminder;
 
@@ -20,6 +21,7 @@ class HabitModel {
     this.icon = '',
     this.color = '',
     this.repeat = 1,
+    this.originalProgress = const [],
     this.progress = const [],
     this.reminder = false,
   }) : id = id ?? Isar.autoIncrement;
@@ -31,6 +33,7 @@ class HabitModel {
       icon: entity.icon,
       color: entity.color,
       repeat: entity.repeat,
+      originalProgress: entity.originalProgress,
       progress: entity.progress,
       reminder: entity.reminder,
     );
@@ -43,6 +46,7 @@ class HabitModel {
       icon: icon,
       color: color,
       repeat: repeat,
+      originalProgress: originalProgress,
       progress: progress,
       reminder: reminder,
     );
@@ -57,6 +61,7 @@ class HabitModel {
         other.icon == icon &&
         other.color == color &&
         other.repeat == repeat &&
+        listEquals(other.originalProgress, originalProgress) &&
         listEquals(other.progress, progress) &&
         other.reminder == reminder;
   }
@@ -69,5 +74,27 @@ class HabitModel {
         color.hashCode ^
         repeat.hashCode ^
         reminder.hashCode;
+  }
+
+  HabitModel copyWith({
+    Id? id,
+    String? title,
+    String? icon,
+    String? color,
+    int? repeat,
+    List<byte>? originalProgress,
+    List<byte>? progress,
+    bool? reminder,
+  }) {
+    return HabitModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      color: color ?? this.color,
+      repeat: repeat ?? this.repeat,
+      originalProgress: originalProgress ?? this.originalProgress,
+      progress: progress ?? this.progress,
+      reminder: reminder ?? this.reminder,
+    );
   }
 }

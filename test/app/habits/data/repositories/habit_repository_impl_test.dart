@@ -45,6 +45,7 @@ void main() {
       color: 'primary',
       repeat: 4,
       progress: [2, 3, 2],
+      originalProgress: [2, 3, 2],
       reminder: true,
     );
     when(() => datasource.updateHabit(model)).thenAnswer(
@@ -76,6 +77,24 @@ void main() {
     final result = await repository.deleteHabit(habitEntity);
     expect(result, Result.success(habitEntity));
     verify(() => datasource.deleteHabit(habitModel)).called(1);
+  });
+
+  test('habits/data/repositories - should clear habits progress', () async {
+    when(() => datasource.clearHabitsProgress()).thenAnswer(
+      (invocation) async => true,
+    );
+    final result = await repository.clearHabitsProgress();
+    expect(result, Result.success(true));
+    verify(() => datasource.clearHabitsProgress()).called(1);
+  });
+
+  test('habits/data/repositories - should reset habit progress', () async {
+    when(() => datasource.resetHabitProgress(habitModel, 0)).thenAnswer(
+      (invocation) async => habitModel,
+    );
+    final result = await repository.resetHabitProgress(habitEntity, 0);
+    expect(result, Result.success(habitEntity));
+    verify(() => datasource.resetHabitProgress(habitModel, 0)).called(1);
   });
 
   test('habits/data/repositories - should handle corrupted data failure',

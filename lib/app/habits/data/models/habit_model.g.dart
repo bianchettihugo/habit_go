@@ -32,23 +32,28 @@ const HabitModelSchema = CollectionSchema(
       name: r'icon',
       type: IsarType.string,
     ),
-    r'progress': PropertySchema(
+    r'originalProgress': PropertySchema(
       id: 3,
+      name: r'originalProgress',
+      type: IsarType.byteList,
+    ),
+    r'progress': PropertySchema(
+      id: 4,
       name: r'progress',
       type: IsarType.byteList,
     ),
     r'reminder': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'reminder',
       type: IsarType.bool,
     ),
     r'repeat': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'repeat',
       type: IsarType.long,
     ),
     r'title': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'title',
       type: IsarType.string,
     )
@@ -75,6 +80,7 @@ int _habitModelEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.color.length * 3;
   bytesCount += 3 + object.icon.length * 3;
+  bytesCount += 3 + object.originalProgress.length;
   bytesCount += 3 + object.progress.length;
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
@@ -89,10 +95,11 @@ void _habitModelSerialize(
   writer.writeString(offsets[0], object.color);
   writer.writeLong(offsets[1], object.hashCode);
   writer.writeString(offsets[2], object.icon);
-  writer.writeByteList(offsets[3], object.progress);
-  writer.writeBool(offsets[4], object.reminder);
-  writer.writeLong(offsets[5], object.repeat);
-  writer.writeString(offsets[6], object.title);
+  writer.writeByteList(offsets[3], object.originalProgress);
+  writer.writeByteList(offsets[4], object.progress);
+  writer.writeBool(offsets[5], object.reminder);
+  writer.writeLong(offsets[6], object.repeat);
+  writer.writeString(offsets[7], object.title);
 }
 
 HabitModel _habitModelDeserialize(
@@ -105,10 +112,11 @@ HabitModel _habitModelDeserialize(
     color: reader.readStringOrNull(offsets[0]) ?? '',
     icon: reader.readStringOrNull(offsets[2]) ?? '',
     id: id,
-    progress: reader.readByteList(offsets[3]) ?? const [],
-    reminder: reader.readBoolOrNull(offsets[4]) ?? false,
-    repeat: reader.readLongOrNull(offsets[5]) ?? 1,
-    title: reader.readStringOrNull(offsets[6]) ?? '',
+    originalProgress: reader.readByteList(offsets[3]) ?? const [],
+    progress: reader.readByteList(offsets[4]) ?? const [],
+    reminder: reader.readBoolOrNull(offsets[5]) ?? false,
+    repeat: reader.readLongOrNull(offsets[6]) ?? 1,
+    title: reader.readStringOrNull(offsets[7]) ?? '',
   );
   return object;
 }
@@ -129,10 +137,12 @@ P _habitModelDeserializeProp<P>(
     case 3:
       return (reader.readByteList(offset) ?? const []) as P;
     case 4:
-      return (reader.readBoolOrNull(offset) ?? false) as P;
+      return (reader.readByteList(offset) ?? const []) as P;
     case 5:
-      return (reader.readLongOrNull(offset) ?? 1) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 6:
+      return (reader.readLongOrNull(offset) ?? 1) as P;
+    case 7:
       return (reader.readStringOrNull(offset) ?? '') as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -611,6 +621,151 @@ extension HabitModelQueryFilter
         upper: upper,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'originalProgress',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'originalProgress',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'originalProgress',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'originalProgress',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HabitModel, HabitModel, QAfterFilterCondition>
+      originalProgressLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'originalProgress',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
     });
   }
 
@@ -1144,6 +1299,12 @@ extension HabitModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<HabitModel, HabitModel, QDistinct> distinctByOriginalProgress() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'originalProgress');
+    });
+  }
+
   QueryBuilder<HabitModel, HabitModel, QDistinct> distinctByProgress() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'progress');
@@ -1193,6 +1354,13 @@ extension HabitModelQueryProperty
   QueryBuilder<HabitModel, String, QQueryOperations> iconProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'icon');
+    });
+  }
+
+  QueryBuilder<HabitModel, List<int>, QQueryOperations>
+      originalProgressProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'originalProgress');
     });
   }
 

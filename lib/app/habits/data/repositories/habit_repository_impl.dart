@@ -53,6 +53,25 @@ class HabitRepositoryImpl extends HabitRepository {
     });
   }
 
+  @override
+  Future<Result<bool>> clearHabitsProgress() {
+    return _handle<bool>(() async {
+      await habitDatasource.clearHabitsProgress();
+      return Result.success(true);
+    });
+  }
+
+  @override
+  Future<Result<HabitEntity>> resetHabitProgress(HabitEntity habit, int index) {
+    return _handle<HabitEntity>(() async {
+      final result = await habitDatasource.resetHabitProgress(
+        HabitModel.fromEntity(habit),
+        index,
+      );
+      return Result.success(result.toEntity());
+    });
+  }
+
   Future<Result<T>> _handle<T>(Function f) async {
     try {
       return await f();

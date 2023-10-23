@@ -12,4 +12,8 @@ class Dependency {
   static void registerLazy<T extends Object>(T instance) {
     return GetIt.I.registerLazySingleton<T>(() => instance);
   }
+
+  static void registerFactory<T extends Object>(T instance) {
+    return GetIt.I.registerFactory(() => instance);
+  }
 }
