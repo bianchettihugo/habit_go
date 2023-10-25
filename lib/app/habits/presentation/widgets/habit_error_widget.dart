@@ -35,7 +35,8 @@ class HabitErrorWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'It was not possible to complete the operation.\nPlease, try again.',
+            'It was not possible to complete the operation.\n'
+            'Please, try again.',
             style: context.text.bodyMedium,
             textAlign: TextAlign.center,
           ),

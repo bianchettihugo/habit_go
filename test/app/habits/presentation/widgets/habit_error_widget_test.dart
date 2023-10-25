@@ -18,7 +18,8 @@ void main() {
     expect(find.text('Ops, there was a problem'), findsOneWidget);
     expect(
       find.text(
-          'It was not possible to complete the operation.\nPlease, try again.'),
+        'It was not possible to complete the operation.\nPlease, try again.',
+      ),
       findsOneWidget,
     );
   });

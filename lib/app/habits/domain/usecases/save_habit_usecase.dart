@@ -27,7 +27,6 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
       data['notify'] != null && data['notify'] is bool,
       data['type'] != null && data['type'] is Map,
       data['type'] is Map && data['type'].containsKey('icon'),
-      data['type'] is Map && data['type'].containsKey('color'),
     ];
 
     if (rules.contains(false)) {
@@ -43,7 +42,7 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
       progress: data['days'],
       reminder: data['notify'],
       icon: data['type']['icon'].toString(),
-      color: data['type']['color'].toString(),
+      color: 'primary',
     );
 
     return id != null
