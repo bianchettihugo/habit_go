@@ -177,8 +177,6 @@ class HabitsBloc extends Bloc<HabitEvent, HabitState> {
     HabitProgressEvent event,
     Emitter<HabitState> emit,
   ) async {
-    emit(state.copyWith(status: HabitStatus.loading));
-
     unawaited(
       _addHabitProgress(
         habit: event.habit,
