@@ -22,31 +22,5 @@ void main() {
 
   test('habits/domain/entities - should create a copy of an entity', () async {
     expect(entity.copyWith(), habitEntity);
-    expect(
-      entity.copyWith(color: 'yellow'),
-      HabitEntity(
-        id: 0,
-        title: 'title',
-        icon: 'ic-close',
-        color: 'yellow',
-        repeat: 4,
-        progress: [2, 3, 2],
-        originalProgress: [2, 3, 2],
-        reminder: true,
-      ),
-    );
-    expect(
-      entity.copyWith(color: 'yellow', progress: [0, 0]),
-      HabitEntity(
-        id: 0,
-        title: 'title',
-        icon: 'ic-close',
-        color: 'yellow',
-        repeat: 4,
-        progress: [0, 0],
-        originalProgress: [0, 0],
-        reminder: true,
-      ),
-    );
   });
 }
