@@ -16,7 +16,7 @@ class EventService {
     }
   }
 
-  void fire(dynamic event) {
+  void add(dynamic event) {
     streamController.add(event);
   }
 

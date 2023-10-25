@@ -7,6 +7,7 @@ import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/progress/data/models/progress_model.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/themes/light_theme.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
   );
 
   Dependency.register<Isar>(isar);
+  Dependency.register<EventService>(EventService());
 
   HabitsModule.init();
 

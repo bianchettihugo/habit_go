@@ -24,7 +24,7 @@ void main() {
     final eventBus = EventService();
     final f = eventBus.on<EventA>().toList();
 
-    eventBus.fire(EventA('a1'));
+    eventBus.add(EventA('a1'));
     eventBus.destroy();
 
     return f.then((events) {
@@ -36,8 +36,8 @@ void main() {
     final eventBus = EventService();
     final f = eventBus.on<EventA>().toList();
 
-    eventBus.fire(EventA('a1'));
-    eventBus.fire(EventA('a2'));
+    eventBus.add(EventA('a1'));
+    eventBus.add(EventA('a2'));
     eventBus.destroy();
 
     return f.then((events) {
@@ -50,8 +50,8 @@ void main() {
     final f1 = eventBus.on<EventA>().toList();
     final f2 = eventBus.on<EventB>().toList();
 
-    eventBus.fire(EventA('a1'));
-    eventBus.fire(EventB('b1'));
+    eventBus.add(EventA('a1'));
+    eventBus.add(EventB('b1'));
     eventBus.destroy();
 
     return Future.wait(
@@ -70,9 +70,9 @@ void main() {
     final eventBus = EventService();
     final f = eventBus.on().toList();
 
-    eventBus.fire(EventA('a1'));
-    eventBus.fire(EventB('b1'));
-    eventBus.fire(EventB('b2'));
+    eventBus.add(EventA('a1'));
+    eventBus.add(EventB('b1'));
+    eventBus.add(EventB('b2'));
     eventBus.destroy();
 
     return f.then((events) {
@@ -84,7 +84,7 @@ void main() {
     final eventBus = EventService();
     final f = eventBus.on<EventWithMap>().toList();
 
-    eventBus.fire(EventWithMap({'a': 'test'}));
+    eventBus.add(EventWithMap({'a': 'test'}));
     eventBus.destroy();
 
     return f.then((events) {
