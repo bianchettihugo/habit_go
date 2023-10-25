@@ -9,11 +9,11 @@ import 'package:habit_go/core/widgets/inputs/number_input.dart';
 import 'package:habit_go/core/widgets/inputs/text_input.dart';
 import 'package:habit_go/core/widgets/inputs/weekday_input.dart';
 
-class HabitFormView extends StatelessWidget {
+class HabitFormPage extends StatelessWidget {
   final HabitEntity? habit;
   final int dayIndex;
 
-  const HabitFormView({
+  const HabitFormPage({
     this.habit,
     this.dayIndex = 0,
     super.key,

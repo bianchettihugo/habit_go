@@ -14,7 +14,7 @@ void main() {
   testWidgets('habits/presentation/pages - renders HabitFormAppBar',
       (tester) async {
     await tester.pumpWidgetWithApp(
-      const HabitFormView(),
+      const HabitFormPage(),
     );
 
     expect(find.byType(HabitFormAppBar), findsOneWidget);
@@ -24,7 +24,7 @@ void main() {
       'habits/presentation/pages - renders TextInput with placeholder "Name"',
       (tester) async {
     await tester.pumpWidgetWithApp(
-      const HabitFormView(),
+      const HabitFormPage(),
     );
 
     expect(find.widgetWithText(TextInput, 'Name'), findsOneWidget);
@@ -34,7 +34,7 @@ void main() {
       'habits/presentation/pages - renders NumberInput with label "How many times a day"',
       (tester) async {
     await tester.pumpWidgetWithApp(
-      const HabitFormView(),
+      const HabitFormPage(),
     );
 
     expect(
@@ -46,7 +46,7 @@ void main() {
   testWidgets('habits/presentation/pages - renders WeekDayInput',
       (tester) async {
     await tester.pumpWidgetWithApp(
-      const HabitFormView(),
+      const HabitFormPage(),
     );
 
     expect(find.byType(WeekDayInput), findsOneWidget);
@@ -56,7 +56,7 @@ void main() {
       'habits/presentation/pages - renders Button with text "Create habit"',
       (tester) async {
     await tester.pumpWidgetWithApp(
-      const HabitFormView(),
+      const HabitFormPage(),
     );
 
     expect(find.widgetWithText(Button, 'Create habit'), findsOneWidget);
@@ -69,7 +69,7 @@ void main() {
     final habit = habitEntity;
     await tester.pumpWidgetWithApp(
       MaterialApp(
-        home: HabitFormView(habit: habit),
+        home: HabitFormPage(habit: habit),
       ),
     );
 
@@ -89,7 +89,7 @@ void main() {
             tester.element(find.byType(ElevatedButton)),
             MaterialPageRoute(
               builder: (context) => Scaffold(
-                body: HabitFormView(
+                body: HabitFormPage(
                   habit: habit,
                 ),
               ),
@@ -121,7 +121,7 @@ void main() {
             tester.element(find.byType(ElevatedButton)),
             MaterialPageRoute(
               builder: (context) => const Scaffold(
-                body: HabitFormView(),
+                body: HabitFormPage(),
               ),
             ),
           );
