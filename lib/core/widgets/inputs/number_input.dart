@@ -11,7 +11,7 @@ class NumberInput extends StatefulWidget {
   final String label;
   final IconData? leadingIcon;
   final String? Function(String?)? validator;
-  final String Function(String)? formatter;
+  final dynamic Function(String?)? formatter;
   final Map<bool, String> Function(String?)? validate;
   final String? id;
   final String? initialValue;
@@ -84,6 +84,7 @@ class _NumberInputState extends State<NumberInput> {
           textAlignVertical: TextAlignVertical.center,
           autofocus: widget.autoFocus,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          formatter: widget.formatter,
           decoration: CustomInputDecorator.decoration(
             context: context,
             error: error,

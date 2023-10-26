@@ -25,6 +25,17 @@ final habitEntity = HabitEntity(
   reminder: true,
 );
 
+final habitEntity2 = HabitEntity(
+  id: 0,
+  title: 'title',
+  icon: 'clipboard',
+  color: 'primary',
+  repeat: 4,
+  progress: [1, 1, 1, 1, 1, 1, 1],
+  originalProgress: [1, 1, 1, 1, 1, 1, 1],
+  reminder: true,
+);
+
 final habitData1 = {
   'id': null,
   'name': 'title',
@@ -45,6 +56,31 @@ final habitData2 = {
   'notify': true,
   'type': {
     'icon': 'ic-close',
+    'color': 'primary',
+  },
+};
+
+final habitDataUpdate = {
+  'result': 'update',
+  'id': 0,
+  'name': 'title',
+  'repeat': 5,
+  'days': [1, 1, 1, 1, 1, 1, 1],
+  'notify': true,
+  'type': {
+    'icon': 'clipboard',
+    'color': 'primary',
+  },
+};
+
+final habitDataCreate = {
+  'result': 'create',
+  'name': 'title',
+  'repeat': 5,
+  'days': [0, 0, 0, 0, 0, 0, -1],
+  'notify': true,
+  'type': {
+    'icon': 'clipboard',
     'color': 'primary',
   },
 };
