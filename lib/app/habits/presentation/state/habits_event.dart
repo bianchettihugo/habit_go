@@ -1,15 +1,22 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 
-sealed class HabitEvent {}
+sealed class HabitEvent extends Equatable {}
 
-class HabitLoadEvent extends HabitEvent {}
+class HabitLoadEvent extends HabitEvent {
+  @override
+  List<Object?> get props => [];
+}
 
 class HabitAddEvent extends HabitEvent {
   final Map<String, dynamic> data;
 
   HabitAddEvent(this.data);
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class HabitUpdateEvent extends HabitEvent {
@@ -32,12 +39,18 @@ class HabitUpdateEvent extends HabitEvent {
 
   @override
   int get hashCode => data.hashCode;
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class HabitDeleteEvent extends HabitEvent {
   final HabitEntity habit;
 
   HabitDeleteEvent(this.habit);
+
+  @override
+  List<Object?> get props => [habit];
 }
 
 class HabitProgressEvent extends HabitEvent {
@@ -48,6 +61,12 @@ class HabitProgressEvent extends HabitEvent {
     required this.habit,
     required this.index,
   });
+
+  @override
+  List<Object?> get props => [
+        index,
+        habit,
+      ];
 }
 
 class HabitResetEvent extends HabitEvent {
@@ -58,4 +77,7 @@ class HabitResetEvent extends HabitEvent {
     required this.habit,
     required this.index,
   });
+
+  @override
+  List<Object?> get props => [index, habit];
 }

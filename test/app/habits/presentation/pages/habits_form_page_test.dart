@@ -111,6 +111,39 @@ void main() {
   });
 
   testWidgets(
+      'habits/presentation/pages - should not return when form is invalid',
+      (WidgetTester tester) async {
+    final habit = habitEntity2;
+    var result = {};
+    await tester.pumpWidgetWithApp(
+      ElevatedButton(
+        onPressed: () async {
+          result = await Navigator.push(
+            tester.element(find.byType(ElevatedButton)),
+            MaterialPageRoute(
+              builder: (context) => Scaffold(
+                body: HabitFormPage(
+                  habit: habit,
+                ),
+              ),
+            ),
+          );
+        },
+        child: const Text('Go'),
+      ),
+    );
+
+    await tester.tap(find.text('Go'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(NumberInput), '0');
+    await tester.pump();
+    await tester.tap(find.text('Update habit'));
+    await tester.pumpAndSettle();
+
+    expect(result, {});
+  });
+
+  testWidgets(
       'habits/presentation/pages - should return result = data when "Create habit" is pressed',
       (WidgetTester tester) async {
     var result = {};

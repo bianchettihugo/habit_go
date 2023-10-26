@@ -98,4 +98,22 @@ void main() {
 
     expect(data, habitDataUpdate);
   });
+
+  testWidgets('habits/presentation/widgets - should call onPressed when tapped',
+      (WidgetTester tester) async {
+    var pressed = false;
+    await tester.pumpWidgetWithApp(
+      HabitCard(
+        habit,
+        onPressed: () {
+          pressed = true;
+        },
+      ),
+    );
+
+    await tester.tap(find.byType(ListTile));
+    await tester.pumpAndSettle();
+
+    expect(pressed, true);
+  });
 }

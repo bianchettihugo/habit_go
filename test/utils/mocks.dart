@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_go/app/habits/data/datasources/habit_datasource.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
@@ -6,6 +7,9 @@ import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/save_habit_usecase.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/progress/data/datasources/progress_datasource.dart';
 import 'package:habit_go/app/progress/domain/repositories/progress_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -31,3 +35,6 @@ class MockResetHabitProgressUsecase extends Mock
 
 class MockAddHabitProgressUsecase extends Mock
     implements AddHabitProgressUsecase {}
+
+class MockHabitsBloc extends MockBloc<HabitEvent, HabitState>
+    implements HabitsBloc {}

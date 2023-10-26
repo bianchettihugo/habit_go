@@ -11,12 +11,14 @@ class HabitCard extends StatefulWidget {
   final int index;
   final bool show;
   final Function(Map<String, dynamic>)? onClosed;
+  final VoidCallback? onPressed;
 
   const HabitCard(
     this.habit, {
     this.index = 0,
     this.show = true,
     this.onClosed,
+    this.onPressed,
     super.key,
   });
 
@@ -122,6 +124,7 @@ class _HabitCardState extends State<HabitCard> {
                     setState(() {
                       _repeat++;
                     });
+                    widget.onPressed?.call();
                   },
                 ),
               );
