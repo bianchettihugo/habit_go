@@ -25,10 +25,14 @@ void main() {
     final event = HabitProgressEvent(index: 0, habit: habitEntity2);
 
     expect(event, HabitProgressEvent(index: 0, habit: habitEntity2));
-    expect(event.hashCode,
-        HabitProgressEvent(index: 0, habit: habitEntity2).hashCode);
     expect(
-        event.props, HabitProgressEvent(index: 0, habit: habitEntity2).props);
+      event.hashCode,
+      HabitProgressEvent(index: 0, habit: habitEntity2).hashCode,
+    );
+    expect(
+      event.props,
+      HabitProgressEvent(index: 0, habit: habitEntity2).props,
+    );
   });
 
   test('habits/presentation/state - HabitResetEvent equality test', () async {

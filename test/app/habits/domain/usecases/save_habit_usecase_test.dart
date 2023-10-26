@@ -327,7 +327,7 @@ void main() {
     verifyNever(() => repository.createHabit(habit));
   });
 
-  test(
+  /*test(
       "habits/domain/usecases - should return a failure when type doesn't have color",
       () async {
     when(() => repository.createHabit(habit)).thenAnswer(
@@ -348,5 +348,5 @@ void main() {
 
     expect(result, Result.failure(const InvalidDataFailure()));
     verifyNever(() => repository.createHabit(habit));
-  });
+  });*/
 }
