@@ -1,5 +1,7 @@
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:habit_go/app/habits/domain/events/habits_events.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
 
@@ -11,9 +13,13 @@ abstract class SaveHabitUsecase {
 
 class SaveHabitUsecaseImpl extends SaveHabitUsecase {
   final HabitRepository _repository;
+  final EventService _eventService;
 
-  SaveHabitUsecaseImpl({required HabitRepository repository})
-      : _repository = repository;
+  SaveHabitUsecaseImpl({
+    required HabitRepository repository,
+    required EventService eventService,
+  })  : _repository = repository,
+        _eventService = eventService;
 
   @override
   Future<Result<HabitEntity>> call({
@@ -45,8 +51,14 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
       color: 'primary',
     );
 
-    return id != null
+    final result = await (id != null
         ? _repository.updateHabit(habit)
-        : _repository.createHabit(habit);
+        : _repository.createHabit(habit));
+
+    if (result.data != null) {
+      _eventService.add(HabitSavedEvent(data: data));
+    }
+
+    return result;
   }
 }

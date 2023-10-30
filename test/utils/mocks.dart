@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_go/app/habits/data/datasources/habit_datasource.dart';
@@ -12,9 +14,26 @@ import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/progress/data/datasources/progress_datasource.dart';
 import 'package:habit_go/app/progress/domain/repositories/progress_repository.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+class MockEventService extends Mock implements EventService {
+  @override
+  void add(dynamic event) {}
+
+  @override
+  void destroy() {}
+
+  @override
+  Stream<T> on<T>() {
+    return const Stream.empty();
+  }
+
+  @override
+  StreamController get streamController => throw UnimplementedError();
+}
 
 class MockHabitDatasource extends Mock implements HabitDatasource {}
 
