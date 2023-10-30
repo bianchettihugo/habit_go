@@ -36,7 +36,13 @@ void main() {
     await datasource.saveProgress(progressModel);
     await datasource.resetProgress();
     final result = await datasource.getProgress();
-    expect(result, null);
+    expect(
+      result,
+      ProgressModel(
+        doneActions: List.generate(31, (index) => 0),
+        totalActions: List.generate(7, (index) => 1),
+      ),
+    );
   });
 
   tearDownAll(() {

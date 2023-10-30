@@ -27,10 +27,24 @@ class LocalProgressDatasource extends ProgressDatasource {
     return item;
   }
 
+  Future<void> _clearProgress() async {
+    return _isar.progressModels.clear();
+  }
+
+  Future<int> _createProgress() async {
+    return _isar.progressModels.put(
+      ProgressModel(
+        doneActions: List.generate(31, (index) => 0),
+        totalActions: List.generate(7, (index) => 1),
+      ),
+    );
+  }
+
   @override
   Future<void> resetProgress() async {
     await _isar.writeTxn(() async {
-      return _isar.progressModels.clear();
+      await _clearProgress();
+      await _createProgress();
     });
   }
 }
