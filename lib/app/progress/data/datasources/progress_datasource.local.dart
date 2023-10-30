@@ -41,10 +41,14 @@ class LocalProgressDatasource extends ProgressDatasource {
   }
 
   @override
-  Future<void> resetProgress() async {
+  Future<ProgressModel> resetProgress() async {
     await _isar.writeTxn(() async {
       await _clearProgress();
       await _createProgress();
     });
+    return ProgressModel(
+      doneActions: List.generate(31, (index) => 0),
+      totalActions: List.generate(7, (index) => 1),
+    );
   }
 }

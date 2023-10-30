@@ -22,7 +22,7 @@ void main() {
   final tOldActionDays = [1, 1, 1, 1, 1, 1, 1];
   const tOldRepeat = 1;
   const tDelete = false;
-  final tProgressEntity = ProgressEntity(totalActions: [1, 1, 1, 1, 1, 1, 1]);
+  const tProgressEntity = ProgressEntity(totalActions: [1, 1, 1, 1, 1, 1, 1]);
   final tResult = Result.success(tProgressEntity);
 
   test(

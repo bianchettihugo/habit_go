@@ -92,7 +92,7 @@ final progressModel = ProgressModel(
   totalActions: [3, 3],
 );
 
-final progressEntity = ProgressEntity(
+const progressEntity = ProgressEntity(
   doneActions: [2, 1],
   totalActions: [3, 3],
 );

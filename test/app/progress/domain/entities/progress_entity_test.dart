@@ -4,7 +4,7 @@ import 'package:habit_go/app/progress/domain/entities/progress_entity.dart';
 import '../../../../utils/data.dart';
 
 void main() {
-  final entity = ProgressEntity(
+  const entity = ProgressEntity(
     doneActions: [2, 1],
     totalActions: [3, 3],
   );
@@ -19,14 +19,14 @@ void main() {
     expect(entity.copyWith(), progressEntity);
     expect(
       entity.copyWith(totalActions: [4, 4]),
-      ProgressEntity(
+      const ProgressEntity(
         doneActions: [2, 1],
         totalActions: [4, 4],
       ),
     );
     expect(
       entity.copyWith(doneActions: [3, 3], totalActions: [4, 4]),
-      ProgressEntity(
+      const ProgressEntity(
         doneActions: [3, 3],
         totalActions: [4, 4],
       ),

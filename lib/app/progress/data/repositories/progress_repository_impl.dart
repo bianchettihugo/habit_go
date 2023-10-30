@@ -11,10 +11,10 @@ class ProgressRepositoryImpl extends ProgressRepository {
   ProgressRepositoryImpl({required this.progressDatasource});
 
   @override
-  Future<Result<bool>> resetProgress() {
-    return _handle<bool>(() async {
-      await progressDatasource.resetProgress();
-      return Result.success(true);
+  Future<Result<ProgressEntity>> resetProgress() {
+    return _handle<ProgressEntity>(() async {
+      final result = await progressDatasource.resetProgress();
+      return Result.success(result.toEntity());
     });
   }
 

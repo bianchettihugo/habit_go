@@ -50,10 +50,10 @@ void main() {
 
   test('progress/data/repositories - should reset the progress', () async {
     when(() => datasource.resetProgress()).thenAnswer(
-      (invocation) async {},
+      (invocation) async => progressModel,
     );
     final result = await repository.resetProgress();
-    expect(result, Result.success(true));
+    expect(result, Result.success(progressEntity));
     verify(() => datasource.resetProgress()).called(1);
   });
 

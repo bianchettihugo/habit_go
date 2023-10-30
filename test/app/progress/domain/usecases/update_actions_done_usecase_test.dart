@@ -12,7 +12,7 @@ void main() {
   late MockProgressRepository mockRepository;
 
   setUp(() {
-    registerFallbackValue(ProgressEntity());
+    registerFallbackValue(const ProgressEntity());
     mockRepository = MockProgressRepository();
     usecase = UpdateActionsDoneUsecaseImpl(repository: mockRepository);
   });
@@ -20,7 +20,7 @@ void main() {
   const tDay = 1;
   const tActions = 2;
   const tDelete = false;
-  final tProgressEntity = ProgressEntity(
+  const tProgressEntity = ProgressEntity(
     doneActions: [
       0,
       0,
