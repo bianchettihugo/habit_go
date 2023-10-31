@@ -113,3 +113,15 @@ final reminderModel = ReminderModel(
   time: DateTime(2021, 11, 11),
   title: 'title',
 );
+
+final reminderEntity2 = ReminderEntity(
+  id: 0,
+  time: DateTime(2021, 11, 11),
+  title: 'title',
+);
+
+final reminderModel2 = ReminderModel(
+  id: 0,
+  time: DateTime(2021, 11, 11),
+  title: 'title',
+);
