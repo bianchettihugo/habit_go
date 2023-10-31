@@ -71,6 +71,8 @@ final habitDataUpdate = {
     'icon': 'clipboard',
     'color': 'primary',
   },
+  'oldRepeat': 4,
+  'oldProgress': [1, 1, 1, 1, 1, 1, 1],
 };
 
 final habitDataCreate = {

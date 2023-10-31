@@ -13,6 +13,7 @@ import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase
 import 'package:habit_go/app/habits/domain/usecases/save_habit_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:isar/isar.dart';
 
 class HabitsModule {
@@ -38,18 +39,21 @@ class HabitsModule {
     Dependency.register<SaveHabitUsecase>(
       SaveHabitUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
+        eventService: Dependency.get<EventService>(),
       ),
     );
 
     Dependency.register<DeleteHabitUsecase>(
       DeleteHabitUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
+        eventService: Dependency.get<EventService>(),
       ),
     );
 
     Dependency.register<AddHabitProgressUsecase>(
       AddHabitProgressUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
+        eventService: Dependency.get<EventService>(),
       ),
     );
 
@@ -62,6 +66,7 @@ class HabitsModule {
     Dependency.register<ResetHabitProgressUsecase>(
       ResetHabitProgressUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
+        eventService: Dependency.get<EventService>(),
       ),
     );
 

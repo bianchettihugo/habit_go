@@ -1,5 +1,7 @@
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
 
@@ -11,9 +13,13 @@ abstract class DeleteHabitUsecase {
 
 class DeleteHabitUsecaseImpl extends DeleteHabitUsecase {
   final HabitRepository _repository;
+  final EventService _eventService;
 
-  DeleteHabitUsecaseImpl({required HabitRepository repository})
-      : _repository = repository;
+  DeleteHabitUsecaseImpl({
+    required HabitRepository repository,
+    required EventService eventService,
+  })  : _repository = repository,
+        _eventService = eventService;
 
   @override
   Future<Result<HabitEntity>> call({
@@ -23,6 +29,12 @@ class DeleteHabitUsecaseImpl extends DeleteHabitUsecase {
       return Result.failure(const InvalidDataFailure());
     }
 
-    return _repository.deleteHabit(habit);
+    final result = await _repository.deleteHabit(habit);
+
+    if (result.data != null) {
+      _eventService.add(HabitDeleteEvent(habit));
+    }
+
+    return result;
   }
 }

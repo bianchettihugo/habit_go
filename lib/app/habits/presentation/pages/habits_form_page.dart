@@ -27,6 +27,8 @@ class HabitFormPage extends StatelessWidget {
       if (habit != null) {
         data.putIfAbsent('id', () => habit!.id);
         data.putIfAbsent('result', () => 'update');
+        data.putIfAbsent('oldRepeat', () => habit!.repeat);
+        data.putIfAbsent('oldProgress', () => habit!.originalProgress);
         Navigator.pop(context, data);
       } else {
         data.putIfAbsent('result', () => 'create');

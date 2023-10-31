@@ -11,3 +11,13 @@ extension BCExtension on BuildContext {
 
   TextTheme get text => Theme.of(this).textTheme;
 }
+
+extension IntExtensions on int {
+  int get getDay {
+    final today = DateTime.now();
+    final firstDayOfTheweek = today.subtract(
+      Duration(days: today.weekday - 1),
+    );
+    return firstDayOfTheweek.add(Duration(days: this)).day;
+  }
+}

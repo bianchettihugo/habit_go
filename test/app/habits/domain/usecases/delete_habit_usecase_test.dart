@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
 import 'package:mocktail/mocktail.dart';
@@ -12,10 +13,15 @@ import '../../../../utils/mocks.dart';
 void main() {
   late HabitRepository repository;
   late DeleteHabitUsecase deleteHabit;
+  late EventService eventService;
 
   setUpAll(() {
     repository = MockHabitRepository();
-    deleteHabit = DeleteHabitUsecaseImpl(repository: repository);
+    eventService = MockEventService();
+    deleteHabit = DeleteHabitUsecaseImpl(
+      repository: repository,
+      eventService: eventService,
+    );
   });
 
   test('habits/domain/usecases - should call delete habits from repository',

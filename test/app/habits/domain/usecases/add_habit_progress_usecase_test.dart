@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,10 +11,15 @@ import '../../../../utils/mocks.dart';
 void main() {
   late AddHabitProgressUsecase addHabitProgress;
   late MockHabitRepository mockRepository;
+  late EventService eventService;
 
   setUp(() {
     mockRepository = MockHabitRepository();
-    addHabitProgress = AddHabitProgressUsecaseImpl(repository: mockRepository);
+    eventService = MockEventService();
+    addHabitProgress = AddHabitProgressUsecaseImpl(
+      repository: mockRepository,
+      eventService: eventService,
+    );
   });
 
   test('should return a HabitEntity with updated progress', () async {
