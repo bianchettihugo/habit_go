@@ -2,6 +2,7 @@ import 'package:habit_go/app/habits/data/models/habit_model.dart';
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
 import 'package:habit_go/app/progress/data/models/progress_model.dart';
 import 'package:habit_go/app/progress/domain/entities/progress_entity.dart';
+import 'package:habit_go/app/reminders/domain/entities/reminder_entity.dart';
 
 final habitModel = HabitModel(
   id: 0,
@@ -100,4 +101,9 @@ final progressModel2 = ProgressModel(
 const progressEntity = ProgressEntity(
   doneActions: [2, 1],
   totalActions: [3, 3],
+);
+
+final reminderEntity = ReminderEntity(
+  time: DateTime(2021, 11, 11),
+  title: 'title',
 );

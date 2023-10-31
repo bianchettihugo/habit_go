@@ -22,7 +22,8 @@ void main() {
     progressBloc.close();
   });
 
-  testWidgets('renders CircularProgressIndicator when loading',
+  testWidgets(
+      'progress/presentation/pages - renders CircularProgressIndicator when loading',
       (WidgetTester tester) async {
     when(() => progressBloc.state)
         .thenReturn(ProgressState(status: ProgressStatus.loading));
@@ -39,7 +40,8 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
-  testWidgets('renders CustomErrorWidget when error',
+  testWidgets(
+      'progress/presentation/pages - renders CustomErrorWidget when error',
       (WidgetTester tester) async {
     when(() => progressBloc.state)
         .thenReturn(ProgressState(status: ProgressStatus.error));
@@ -58,7 +60,8 @@ void main() {
     await tester.tap(find.byType(LinkButton));
   });
 
-  testWidgets('renders Table when success', (WidgetTester tester) async {
+  testWidgets('progress/presentation/pages - renders Table when success',
+      (WidgetTester tester) async {
     when(() => progressBloc.state).thenReturn(
       ProgressState(
         status: ProgressStatus.loaded,
@@ -84,7 +87,8 @@ void main() {
     expect(find.byType(Table), findsOneWidget);
   });
 
-  testWidgets('renders Table with correct opacity colors',
+  testWidgets(
+      'progress/presentation/pages - renders Table with correct opacity colors',
       (WidgetTester tester) async {
     final progressState = ProgressState(
       status: ProgressStatus.loaded,
