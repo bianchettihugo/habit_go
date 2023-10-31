@@ -6,4 +6,5 @@ class Keys {
   static String lastDay = 'hab_monday';
   static String lastMonth = 'hab_month';
   static String lastYear = 'hab_year';
+  static String daysStreak = 'hab_days_streak';
 }

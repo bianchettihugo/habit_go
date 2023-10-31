@@ -4,10 +4,10 @@ import 'package:habit_go/core/values/files.dart';
 import 'package:habit_go/core/widgets/buttons/link_button.dart';
 import 'package:lottie/lottie.dart';
 
-class HabitErrorWidget extends StatelessWidget {
+class CustomErrorWidget extends StatelessWidget {
   final VoidCallback onTryAgain;
 
-  const HabitErrorWidget({
+  const CustomErrorWidget({
     required this.onTryAgain,
     super.key,
   });

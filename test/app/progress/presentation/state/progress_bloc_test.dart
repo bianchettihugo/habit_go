@@ -147,6 +147,7 @@ void main() {
           repeat: any(named: 'repeat'),
           oldActionDays: any(named: 'oldActionDays'),
           oldRepeat: any(named: 'oldRepeat'),
+          delete: any(named: 'delete'),
         ),
       ).thenAnswer(
         (_) => Future.value(Result.success(progress)),
@@ -187,6 +188,7 @@ void main() {
           repeat: any(named: 'repeat'),
           oldActionDays: any(named: 'oldActionDays'),
           oldRepeat: any(named: 'oldRepeat'),
+          delete: any(named: 'delete'),
         ),
       ).thenAnswer(
         (_) => Future.value(

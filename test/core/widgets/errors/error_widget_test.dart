@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:habit_go/app/habits/presentation/widgets/habit_error_widget.dart';
+import 'package:habit_go/core/widgets/errors/error_widget.dart';
 
 void main() {
   testWidgets('habits/presentation/widgets - renders error message',
@@ -8,7 +8,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: HabitErrorWidget(
+          body: CustomErrorWidget(
             onTryAgain: () {},
           ),
         ),
@@ -31,7 +31,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: HabitErrorWidget(
+          body: CustomErrorWidget(
             onTryAgain: () {
               tapped = true;
             },

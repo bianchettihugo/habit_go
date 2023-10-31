@@ -18,6 +18,9 @@ import 'package:habit_go/app/progress/domain/usecases/get_progress_usecase.dart'
 import 'package:habit_go/app/progress/domain/usecases/reset_progress_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/update_actions_done_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/update_total_actions_usecase.dart';
+import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
+import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
+import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -71,3 +74,6 @@ class MockUpdateActionsDoneUsecase extends Mock
 
 class MockUpdateTotalActionsUsecase extends Mock
     implements UpdateTotalActionsUsecase {}
+
+class MockProgressBloc extends MockBloc<ProgressEvent, ProgressState>
+    implements ProgressBloc {}

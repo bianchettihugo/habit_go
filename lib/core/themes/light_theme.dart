@@ -180,7 +180,7 @@ class LightTheme {
             fontFamily: 'Inter',
           ),
           bodySmall: TextStyle(
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
             letterSpacing: 0.4,
             height: 1.33,
