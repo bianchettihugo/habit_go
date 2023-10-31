@@ -1,16 +1,5 @@
 import 'dart:async';
 
-typedef EventMapper<Event> = Stream<Event> Function(Event event);
-
-typedef EventTransformer<Event> = Stream<Event> Function(
-  Stream<Event> events,
-  EventMapper<Event> mapper,
-);
-
-EventTransformer<Event> sequential<Event>() {
-  return (events, mapper) => events.asyncExpand(mapper);
-}
-
 class EventService {
   final StreamController _streamController;
 

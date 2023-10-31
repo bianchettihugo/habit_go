@@ -14,6 +14,10 @@ import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/progress/data/datasources/progress_datasource.dart';
 import 'package:habit_go/app/progress/domain/repositories/progress_repository.dart';
+import 'package:habit_go/app/progress/domain/usecases/get_progress_usecase.dart';
+import 'package:habit_go/app/progress/domain/usecases/reset_progress_usecase.dart';
+import 'package:habit_go/app/progress/domain/usecases/update_actions_done_usecase.dart';
+import 'package:habit_go/app/progress/domain/usecases/update_total_actions_usecase.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -57,3 +61,13 @@ class MockAddHabitProgressUsecase extends Mock
 
 class MockHabitsBloc extends MockBloc<HabitEvent, HabitState>
     implements HabitsBloc {}
+
+class MockGetProgressUsecase extends Mock implements GetProgressUsecase {}
+
+class MockResetProgressUsecase extends Mock implements ResetProgressUsecase {}
+
+class MockUpdateActionsDoneUsecase extends Mock
+    implements UpdateActionsDoneUsecase {}
+
+class MockUpdateTotalActionsUsecase extends Mock
+    implements UpdateTotalActionsUsecase {}

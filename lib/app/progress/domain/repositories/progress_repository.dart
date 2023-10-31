@@ -4,5 +4,5 @@ import 'package:habit_go/core/utils/result.dart';
 abstract class ProgressRepository {
   Future<Result<ProgressEntity>> saveProgress(ProgressEntity progress);
   Future<Result<ProgressEntity>> getProgress();
-  Future<Result<bool>> resetProgress();
+  Future<Result<ProgressEntity>> resetProgress();
 }

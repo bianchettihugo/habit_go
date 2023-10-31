@@ -4,6 +4,7 @@ import 'package:habit_go/app/progress/domain/usecases/Reset_progress_usecase.dar
 import 'package:habit_go/core/utils/result.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../../utils/data.dart';
 import '../../../../utils/mocks.dart';
 
 void main() {
@@ -18,10 +19,10 @@ void main() {
   test('progress/domain/usecases - should call reset progress from repository',
       () async {
     when(() => repository.resetProgress()).thenAnswer(
-      (invocation) async => Result.success(true),
+      (invocation) async => Result.success(progressEntity),
     );
 
     final result = await resetProgress();
-    expect(result.data, true);
+    expect(result.data, progressEntity);
   });
 }

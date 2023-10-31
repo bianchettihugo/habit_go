@@ -5,5 +5,5 @@ abstract class ProgressDatasource {
 
   Future<ProgressModel> saveProgress(ProgressModel progress);
 
-  Future<void> resetProgress();
+  Future<ProgressModel> resetProgress();
 }

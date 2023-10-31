@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 
 class ProgressEntity {
-  final int id = 0;
+  final int id;
   final List<int> doneActions;
   final List<int> totalActions;
 
-  ProgressEntity({
+  const ProgressEntity({
+    this.id = 0,
     this.doneActions = const [],
     this.totalActions = const [],
   });
