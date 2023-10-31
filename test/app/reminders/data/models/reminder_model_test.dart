@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_go/app/reminders/data/models/reminder_model.dart';
 
 void main() {
-  test('should convert to and from an entity', () {
+  test('reminders/data/models - should convert to and from an entity', () {
     final model = ReminderModel(
       id: 1,
       title: 'Test Reminder',
@@ -25,7 +25,7 @@ void main() {
     expect(fromEntity.enabled, model.enabled);
   });
 
-  test('should have value equality', () {
+  test('reminders/data/models - should have value equality', () {
     final model1 = ReminderModel(
       id: 1,
       title: 'Test Reminder',

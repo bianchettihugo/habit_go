@@ -16,7 +16,9 @@ void main() {
     usecase = DeleteReminderUsecaseImpl(repository: repository);
   });
 
-  test('should return a ReminderEntity when repository succeeds', () async {
+  test(
+      'reminders/domain/usecases - should return a ReminderEntity when repository succeeds',
+      () async {
     when(() => repository.deleteReminder(reminderEntity2))
         .thenAnswer((_) async => Result.success(reminderEntity2));
 

@@ -16,7 +16,9 @@ void main() {
     usecase = AddReminderUsecaseImpl(repository: repository);
   });
 
-  test('should return a ReminderEntity when repository succeeds', () async {
+  test(
+      'reminders/domain/usecases - should return a ReminderEntity when repository succeeds',
+      () async {
     when(() => repository.addReminder(reminderEntity2))
         .thenAnswer((_) async => Result.success(reminderEntity2));
 
