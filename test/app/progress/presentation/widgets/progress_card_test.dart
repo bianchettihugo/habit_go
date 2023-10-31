@@ -25,7 +25,8 @@ void main() {
     expect(find.byType(LinearProgressIndicator), findsOneWidget);
   });
 
-  testWidgets('renders with default values', (WidgetTester tester) async {
+  testWidgets('progress/presentation/state - renders with default values',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
