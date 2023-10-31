@@ -6,6 +6,7 @@ import 'package:habit_go/app/habits/presentation/pages/habits_page.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/progress/data/models/progress_model.dart';
+import 'package:habit_go/app/progress/progress_module.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/themes/light_theme.dart';
@@ -25,6 +26,7 @@ Future<void> main() async {
   Dependency.register<EventService>(EventService());
 
   HabitsModule.init();
+  ProgressModule.init();
 
   runApp(const MyApp());
 }
@@ -55,11 +57,7 @@ class TestWidget extends StatelessWidget {
               Dependency.get<HabitsBloc>()..add(HabitLoadEvent()),
         ),
       ],
-      child: Builder(
-        builder: (context) {
-          return const HabitsPage();
-        },
-      ),
+      child: const HabitsPage(),
     );
   }
 }
