@@ -9,9 +9,9 @@ import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_card.dart';
-import 'package:habit_go/app/habits/presentation/widgets/habit_error_widget.dart';
 import 'package:habit_go/core/utils/extensions.dart';
 import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
+import 'package:habit_go/core/widgets/errors/error_widget.dart';
 
 class HabitsPage extends StatefulWidget {
   const HabitsPage({super.key});
@@ -185,7 +185,7 @@ class HabitsPageState extends State<HabitsPage> {
 
                   if (state.status == HabitStatus.error) {
                     return Expanded(
-                      child: HabitErrorWidget(
+                      child: CustomErrorWidget(
                         onTryAgain: () =>
                             context.read<HabitsBloc>().add(HabitLoadEvent()),
                       ),

@@ -14,14 +14,16 @@ class ProgressLoadEvent extends ProgressEvent {
 class ProgressActionEvent extends ProgressEvent {
   final int index;
   final int value;
+  final bool delete;
 
   const ProgressActionEvent({
     required this.index,
     this.value = 1,
+    this.delete = false,
   });
 
   @override
-  List<Object?> get props => [index, value];
+  List<Object?> get props => [index, value, delete];
 }
 
 class ProgressUpdateEvent extends ProgressEvent {
@@ -29,12 +31,14 @@ class ProgressUpdateEvent extends ProgressEvent {
   final int repeat;
   final List<int>? oldProgress;
   final int? oldRepeat;
+  final bool delete;
 
   const ProgressUpdateEvent({
     required this.progress,
     required this.repeat,
     this.oldProgress,
     this.oldRepeat,
+    this.delete = false,
   });
 
   @override
@@ -43,6 +47,7 @@ class ProgressUpdateEvent extends ProgressEvent {
         repeat,
         oldProgress,
         oldRepeat,
+        delete,
       ];
 }
 

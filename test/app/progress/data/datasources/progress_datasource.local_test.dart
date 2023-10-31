@@ -25,6 +25,15 @@ void main() {
     expect(habit, progressModel);
   });
 
+  test('progress/data/datasources - should create a progress if none exists',
+      () async {
+    await isar.writeTxn(() async {
+      return isar.progressModels.clear();
+    });
+    final result = await datasource.getProgress();
+    expect(result, progressModel2);
+  });
+
   test('progress/data/datasources - should get the progress', () async {
     await datasource.saveProgress(progressModel);
     await datasource.saveProgress(progressModel);

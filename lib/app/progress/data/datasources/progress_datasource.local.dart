@@ -24,6 +24,14 @@ class LocalProgressDatasource extends ProgressDatasource {
     await _isar.txn(() async {
       item = await _isar.progressModels.where().findFirst();
     });
+
+    if (item == null) {
+      await _isar.writeTxn(() async {
+        await _createProgress();
+        item = await _isar.progressModels.where().findFirst();
+      });
+    }
+
     return item;
   }
 

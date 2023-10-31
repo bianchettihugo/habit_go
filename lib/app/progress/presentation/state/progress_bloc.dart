@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_go/app/progress/domain/usecases/get_progress_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/reset_progress_usecase.dart';
@@ -25,7 +26,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
         _updateTotalActions = updateTotalActionsUsecase,
         super(ProgressState()) {
     on<ProgressLoadEvent>(_onLoad);
-    on<ProgressActionEvent>(_onAction);
+    on<ProgressActionEvent>(_onAction, transformer: sequential());
     on<ProgressUpdateEvent>(_onUpdate);
     on<ProgressResetEvent>(_onReset);
   }
@@ -67,6 +68,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     final result = await _updateActionsDone(
       day: index,
       actions: value,
+      delete: event.delete,
     );
 
     result.when(
@@ -98,6 +100,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
       repeat: event.repeat,
       oldActionDays: event.oldProgress,
       oldRepeat: event.oldRepeat,
+      delete: event.delete,
     );
 
     result.when(

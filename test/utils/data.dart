@@ -92,6 +92,11 @@ final progressModel = ProgressModel(
   totalActions: [3, 3],
 );
 
+final progressModel2 = ProgressModel(
+  doneActions: List.generate(31, (index) => 0),
+  totalActions: List.generate(7, (index) => 1),
+);
+
 const progressEntity = ProgressEntity(
   doneActions: [2, 1],
   totalActions: [3, 3],

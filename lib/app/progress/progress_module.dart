@@ -10,6 +10,7 @@ import 'package:habit_go/app/progress/domain/usecases/reset_progress_usecase.dar
 import 'package:habit_go/app/progress/domain/usecases/save_progress_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/update_actions_done_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/update_total_actions_usecase.dart';
+import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:isar/isar.dart';
 
 import '../../core/services/dependency/dependency_service.dart';
@@ -55,6 +56,15 @@ class ProgressModule {
     Dependency.register<UpdateTotalActionsUsecase>(
       UpdateTotalActionsUsecaseImpl(
         repository: Dependency.get<ProgressRepository>(),
+      ),
+    );
+
+    Dependency.registerLazy<ProgressBloc>(
+      ProgressBloc(
+        getProgressUsecase: Dependency.get<GetProgressUsecase>(),
+        resetProgressUsecase: Dependency.get<ResetProgressUsecase>(),
+        updateActionsDoneUsecase: Dependency.get<UpdateActionsDoneUsecase>(),
+        updateTotalActionsUsecase: Dependency.get<UpdateTotalActionsUsecase>(),
       ),
     );
 

@@ -6,8 +6,8 @@ import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_card.dart';
-import 'package:habit_go/app/habits/presentation/widgets/habit_error_widget.dart';
 import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
+import 'package:habit_go/core/widgets/errors/error_widget.dart';
 import 'package:habit_go/core/widgets/icons/feather_icons_icons.dart';
 import 'package:habit_go/core/widgets/inputs/number_input.dart';
 import 'package:habit_go/core/widgets/inputs/text_input.dart';
@@ -181,7 +181,7 @@ void main() {
       ),
     );
 
-    expect(find.byType(HabitErrorWidget), findsOneWidget);
+    expect(find.byType(CustomErrorWidget), findsOneWidget);
 
     await tester.tap(find.text('Try again'));
     verify(
