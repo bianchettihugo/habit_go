@@ -23,6 +23,7 @@ import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
 import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.dart';
 import 'package:habit_go/app/settings/data/datasources/settings_datasource.dart';
+import 'package:habit_go/app/settings/domain/repositories/settings_repository.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,3 +87,5 @@ class MockReminderRepository extends Mock implements ReminderRepository {}
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 class MockSettingsDatasource extends Mock implements SettingsDatasource {}
+
+class MockSettingsRepository extends Mock implements SettingsRepository {}
