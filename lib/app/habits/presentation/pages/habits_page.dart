@@ -204,6 +204,7 @@ class HabitsPageState extends State<HabitsPage> {
                       ),
                       itemBuilder: (context, pageIndex) {
                         return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: state.habits.length,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 18,
