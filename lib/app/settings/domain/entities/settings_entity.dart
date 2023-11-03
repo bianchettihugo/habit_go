@@ -1,39 +1,39 @@
-enum ThemeMode implements Comparable<ThemeMode> {
+enum AppTheme implements Comparable<AppTheme> {
   light(id: 0),
   dark(id: 1),
   system(id: 2);
 
-  const ThemeMode({
+  const AppTheme({
     required this.id,
   });
 
-  static ThemeMode fromId(int id) {
+  static AppTheme fromId(int id) {
     switch (id) {
       case 0:
-        return ThemeMode.light;
+        return AppTheme.light;
       case 1:
-        return ThemeMode.dark;
+        return AppTheme.dark;
       case 2:
-        return ThemeMode.system;
+        return AppTheme.system;
       default:
-        return ThemeMode.light;
+        return AppTheme.light;
     }
   }
 
   final int id;
 
   @override
-  int compareTo(ThemeMode other) => id - other.id;
+  int compareTo(AppTheme other) => id - other.id;
 }
 
 class SettingsEntity {
-  final ThemeMode themeMode;
+  final AppTheme themeMode;
   final bool completeAnimations;
   final bool appAnimations;
   final bool notifications;
 
   const SettingsEntity({
-    this.themeMode = ThemeMode.light,
+    this.themeMode = AppTheme.light,
     this.completeAnimations = true,
     this.appAnimations = true,
     this.notifications = true,
@@ -58,7 +58,7 @@ class SettingsEntity {
   }
 
   SettingsEntity copyWith({
-    ThemeMode? themeMode,
+    AppTheme? themeMode,
     bool? completeAnimations,
     bool? appAnimations,
     bool? notifications,

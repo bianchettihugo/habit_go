@@ -129,7 +129,7 @@ final reminderModel2 = ReminderModel(
 );
 
 const settingsEntity = SettingsEntity(
-  themeMode: ThemeMode.light,
+  themeMode: AppTheme.light,
   completeAnimations: true,
   appAnimations: true,
   notifications: true,

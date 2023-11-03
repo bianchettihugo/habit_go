@@ -29,7 +29,9 @@ import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_events.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_state.dart';
 import 'package:habit_go/app/settings/data/datasources/settings_datasource.dart';
+import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 import 'package:habit_go/app/settings/domain/repositories/settings_repository.dart';
+import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,3 +106,6 @@ class MockAddReminderUsecase extends Mock implements AddReminderUsecase {}
 
 class MockReminderBloc extends MockBloc<ReminderEvent, ReminderState>
     implements RemindersBloc {}
+
+class MockSettingsCubit extends MockCubit<SettingsEntity>
+    implements SettingsCubit {}

@@ -10,6 +10,11 @@ void main() {
     var pressed = false;
     bool onPressed() => pressed = true;
 
+    SettingsItem(
+      title: title,
+      onPressed: onPressed,
+    );
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

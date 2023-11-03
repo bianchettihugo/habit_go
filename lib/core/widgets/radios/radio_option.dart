@@ -4,10 +4,12 @@ import 'package:habit_go/core/utils/extensions.dart';
 class RadioOption<T> extends StatefulWidget {
   final Map<String, T> options;
   final Function(T) onChanged;
+  final T? selectedOption;
 
   const RadioOption({
     required this.options,
     required this.onChanged,
+    this.selectedOption,
     super.key,
   });
 
@@ -20,7 +22,7 @@ class _RadioOptionState<T> extends State<RadioOption<T>> {
 
   @override
   void initState() {
-    _selectedOption = widget.options.values.first;
+    _selectedOption = widget.selectedOption ?? widget.options.values.first;
     super.initState();
   }
 

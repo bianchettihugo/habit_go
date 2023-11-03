@@ -24,7 +24,7 @@ class SettingsModel {
 
   SettingsEntity toEntity() {
     return SettingsEntity(
-      themeMode: ThemeMode.fromId(themeMode),
+      themeMode: AppTheme.fromId(themeMode),
       completeAnimations: completeAnimations,
       appAnimations: appAnimations,
       notifications: notifications,

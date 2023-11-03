@@ -7,7 +7,7 @@ import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 void main() {
   test('settings/data/models - should convert from entity correctly', () {
     const entity = SettingsEntity(
-      themeMode: ThemeMode.light,
+      themeMode: AppTheme.light,
       completeAnimations: false,
       appAnimations: true,
       notifications: true,
@@ -31,7 +31,7 @@ void main() {
 
     final entity = model.toEntity();
 
-    expect(entity.themeMode, ThemeMode.dark);
+    expect(entity.themeMode, AppTheme.dark);
     expect(entity.completeAnimations, true);
     expect(entity.appAnimations, false);
     expect(entity.notifications, true);

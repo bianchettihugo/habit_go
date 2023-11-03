@@ -3,7 +3,7 @@ import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 
 void main() {
-  const themeMode = ThemeMode.dark;
+  const themeMode = AppTheme.dark;
   const completeAnimations = true;
   const appAnimations = false;
   const notifications = true;
@@ -18,9 +18,9 @@ void main() {
   blocTest<SettingsCubit, SettingsEntity>(
     'settings/presentation/state - emits the correct state when updateTheme is called',
     build: () => SettingsCubit(settingsEntity),
-    act: (cubit) => cubit.updateTheme(ThemeMode.light),
+    act: (cubit) => cubit.updateTheme(AppTheme.light),
     expect: () => [
-      settingsEntity.copyWith(themeMode: ThemeMode.light),
+      settingsEntity.copyWith(themeMode: AppTheme.light),
     ],
   );
 

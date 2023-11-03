@@ -8,14 +8,23 @@ void main() {
   testWidgets('core/widgets/switches - renders the switch',
       (WidgetTester tester) async {
     await tester.pumpWidgetWithApp(
-      const SwitchOption(
-        id: 'id',
-        title: 'title',
+      Column(
+        children: [
+          const SwitchOption(
+            id: 'id',
+            title: 'title',
+          ),
+          SwitchOption(
+            id: 'id2',
+            title: '',
+            onChanged: (v) {},
+          ),
+        ],
       ),
     );
 
     expect(find.text('title'), findsOneWidget);
-    expect(find.byType(SwitchOption), findsOneWidget);
-    expect(find.byType(Switch), findsOneWidget);
+    expect(find.byType(SwitchOption), findsWidgets);
+    expect(find.byType(Switch), findsWidgets);
   });
 }

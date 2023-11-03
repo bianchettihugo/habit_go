@@ -14,6 +14,14 @@ void main() {
     };
     String? selectedOption;
 
+    RadioOption<String>(
+      options: options,
+      onChanged: (value) {
+        selectedOption = value;
+      },
+      selectedOption: 'option2',
+    );
+
     await tester.pumpWidgetWithApp(
       RadioOption<String>(
         options: options,
