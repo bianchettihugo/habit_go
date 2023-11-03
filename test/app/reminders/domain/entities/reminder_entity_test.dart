@@ -28,10 +28,12 @@ void main() {
       entity.copyWith(
         time: DateTime(2021, 11, 10),
         title: '',
+        enabled: false,
       ),
       ReminderEntity(
         time: DateTime(2021, 11, 10),
         title: '',
+        enabled: false,
       ),
     );
   });
