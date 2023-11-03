@@ -21,6 +21,7 @@ import 'package:habit_go/app/progress/domain/usecases/update_total_actions_useca
 import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
+import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -77,3 +78,5 @@ class MockUpdateTotalActionsUsecase extends Mock
 
 class MockProgressBloc extends MockBloc<ProgressEvent, ProgressState>
     implements ProgressBloc {}
+
+class MockReminderRepository extends Mock implements ReminderRepository {}

@@ -19,7 +19,9 @@ void main() {
     repository = ReminderRepositoryImpl(reminderDatasource: datasource);
   });
 
-  test('should return success result when adding reminder', () async {
+  test(
+      'reminders/data/repositories - should return success result when adding reminder',
+      () async {
     final reminder = reminderEntity;
     final reminderModel = ReminderModel.fromEntity(reminder);
     when(() => datasource.addReminder(reminderModel))
@@ -31,7 +33,9 @@ void main() {
     verify(() => datasource.addReminder(reminderModel)).called(1);
   });
 
-  test('should return failure result when adding reminder fails', () async {
+  test(
+      'reminders/data/repositories - should return failure result when adding reminder fails',
+      () async {
     final reminder = reminderEntity;
     final reminderModel = ReminderModel.fromEntity(reminder);
     when(() => datasource.addReminder(reminderModel)).thenThrow(Exception());
@@ -42,7 +46,9 @@ void main() {
     verify(() => datasource.addReminder(reminderModel)).called(1);
   });
 
-  test('should return success result when deleting reminder', () async {
+  test(
+      'reminders/data/repositories - should return success result when deleting reminder',
+      () async {
     final reminder = reminderEntity;
     final reminderModel = ReminderModel.fromEntity(reminder);
     when(() => datasource.deleteReminder(reminderModel))
@@ -54,7 +60,9 @@ void main() {
     verify(() => datasource.deleteReminder(reminderModel)).called(1);
   });
 
-  test('should return failure result when deleting reminder fails', () async {
+  test(
+      'reminders/data/repositories - should return failure result when deleting reminder fails',
+      () async {
     final reminder = reminderEntity;
     final reminderModel = ReminderModel.fromEntity(reminder);
     when(() => datasource.deleteReminder(reminderModel)).thenThrow(Exception());
@@ -65,7 +73,8 @@ void main() {
     verify(() => datasource.deleteReminder(reminderModel)).called(1);
   });
 
-  test('should return success result with reminders when getting reminders',
+  test(
+      'reminders/data/repositories - should return success result with reminders when getting reminders',
       () async {
     final reminders = [
       ReminderModel(
@@ -94,7 +103,9 @@ void main() {
     verify(() => datasource.getReminders()).called(1);
   });
 
-  test('should return failure result when getting empty reminders', () async {
+  test(
+      'reminders/data/repositories - should return failure result when getting empty reminders',
+      () async {
     final reminders = <ReminderModel>[];
     when(() => datasource.getReminders()).thenAnswer((_) async => reminders);
 
@@ -104,7 +115,9 @@ void main() {
     verify(() => datasource.getReminders()).called(1);
   });
 
-  test('should return failure result when getting reminders fails', () async {
+  test(
+      'reminders/data/repositories - should return failure result when getting reminders fails',
+      () async {
     when(() => datasource.getReminders()).thenThrow(Exception());
 
     final result = await repository.getReminders();
@@ -113,7 +126,9 @@ void main() {
     verify(() => datasource.getReminders()).called(1);
   });
 
-  test('should return success result when function returns a value', () async {
+  test(
+      'reminders/data/repositories - should return success result when function returns a value',
+      () async {
     when(() => datasource.addReminder(reminderModel2))
         .thenAnswer((_) async => reminderModel2);
 
@@ -122,7 +137,8 @@ void main() {
     expect(result, equals(Result.success(reminderEntity2)));
   });
 
-  test('should return failure result when function throws an exception',
+  test(
+      'reminders/data/repositories - should return failure result when function throws an exception',
       () async {
     when(() => datasource.addReminder(reminderModel2)).thenThrow(Exception());
 
@@ -131,7 +147,8 @@ void main() {
     expect(result, equals(Result.failure(const Failure())));
   });
 
-  test('should return failure result when function returns a RangeError',
+  test(
+      'reminders/data/repositories - should return failure result when function returns a RangeError',
       () async {
     when(() => datasource.addReminder(reminderModel2))
         .thenThrow(RangeError('test'));
@@ -142,7 +159,7 @@ void main() {
   });
 
   test(
-      'should return failure result when function returns a DatabaseIndexError',
+      'reminders/data/repositories - should return failure result when function returns a DatabaseIndexError',
       () async {
     when(() => datasource.addReminder(reminderModel2))
         .thenThrow(DatabaseIndexError());
@@ -152,7 +169,8 @@ void main() {
     expect(result, equals(Result.failure(const DatabaseFailure())));
   });
 
-  test('should return failure result when function returns a DatabaseError',
+  test(
+      'reminders/data/repositories - should return failure result when function returns a DatabaseError',
       () async {
     when(() => datasource.addReminder(reminderModel2))
         .thenThrow(DatabaseError(''));
