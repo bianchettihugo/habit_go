@@ -24,6 +24,7 @@ import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
 import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -80,3 +81,5 @@ class MockProgressBloc extends MockBloc<ProgressEvent, ProgressState>
     implements ProgressBloc {}
 
 class MockReminderRepository extends Mock implements ReminderRepository {}
+
+class MockSharedPreferences extends Mock implements SharedPreferences {}
