@@ -22,6 +22,9 @@ import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
 import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.dart';
+import 'package:habit_go/app/reminders/domain/usecases/add_reminder_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/delete_reminder_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_usecase.dart';
 import 'package:habit_go/app/settings/data/datasources/settings_datasource.dart';
 import 'package:habit_go/app/settings/domain/repositories/settings_repository.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
@@ -89,3 +92,9 @@ class MockSharedPreferences extends Mock implements SharedPreferences {}
 class MockSettingsDatasource extends Mock implements SettingsDatasource {}
 
 class MockSettingsRepository extends Mock implements SettingsRepository {}
+
+class MockFetchRemindersUsecase extends Mock implements FetchRemindersUsecase {}
+
+class MockDeleteReminderUsecase extends Mock implements DeleteReminderUsecase {}
+
+class MockAddReminderUsecase extends Mock implements AddReminderUsecase {}
