@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habit_go/app/app.dart';
+import 'package:habit_go/app/app_module.dart';
 import 'package:habit_go/app/habits/data/models/habit_model.dart';
 import 'package:habit_go/app/habits/habits_module.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
