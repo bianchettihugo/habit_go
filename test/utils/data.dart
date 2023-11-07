@@ -4,6 +4,7 @@ import 'package:habit_go/app/progress/data/models/progress_model.dart';
 import 'package:habit_go/app/progress/domain/entities/progress_entity.dart';
 import 'package:habit_go/app/reminders/data/models/reminder_model.dart';
 import 'package:habit_go/app/reminders/domain/entities/reminder_entity.dart';
+import 'package:habit_go/app/settings/data/models/settings_model.dart';
 import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 
 final habitModel = HabitModel(
@@ -129,6 +130,13 @@ final reminderModel2 = ReminderModel(
 
 const settingsEntity = SettingsEntity(
   themeMode: ThemeMode.light,
+  completeAnimations: true,
+  appAnimations: true,
+  notifications: true,
+);
+
+const settingsModel = SettingsModel(
+  themeMode: 0,
   completeAnimations: true,
   appAnimations: true,
   notifications: true,

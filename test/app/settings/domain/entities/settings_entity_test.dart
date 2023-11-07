@@ -1,15 +1,17 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 
 void main() {
   test('settings/domain/entities - test SettingsEntity equality', () {
-    const settings1 = SettingsEntity(
+    final settings1 = SettingsEntity(
       themeMode: ThemeMode.light,
       completeAnimations: true,
       appAnimations: true,
       notifications: true,
     );
-    const settings2 = SettingsEntity(
+    final settings2 = SettingsEntity(
       themeMode: ThemeMode.light,
       completeAnimations: true,
       appAnimations: true,
@@ -44,5 +46,21 @@ void main() {
     expect(settings2.completeAnimations, equals(false));
     expect(settings2.appAnimations, equals(true));
     expect(settings2.notifications, equals(true));
+  });
+
+  test('settings/domain/entities - enum test', () {
+    const settings1 = ThemeMode.light;
+    const settings2 = ThemeMode.dark;
+    const settings3 = ThemeMode.system;
+    settings1.compareTo(settings3);
+
+    expect(settings1.id, 0);
+    expect(settings2.id, 1);
+    expect(settings3.id, 2);
+
+    expect(ThemeMode.fromId(0), settings1);
+    expect(ThemeMode.fromId(1), settings2);
+    expect(ThemeMode.fromId(2), settings3);
+    expect(ThemeMode.fromId(3), settings1);
   });
 }

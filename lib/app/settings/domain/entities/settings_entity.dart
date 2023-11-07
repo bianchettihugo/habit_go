@@ -1,4 +1,30 @@
-enum ThemeMode { light, dark, system }
+enum ThemeMode implements Comparable<ThemeMode> {
+  light(id: 0),
+  dark(id: 1),
+  system(id: 2);
+
+  const ThemeMode({
+    required this.id,
+  });
+
+  static ThemeMode fromId(int id) {
+    switch (id) {
+      case 0:
+        return ThemeMode.light;
+      case 1:
+        return ThemeMode.dark;
+      case 2:
+        return ThemeMode.system;
+      default:
+        return ThemeMode.light;
+    }
+  }
+
+  final int id;
+
+  @override
+  int compareTo(ThemeMode other) => id - other.id;
+}
 
 class SettingsEntity {
   final ThemeMode themeMode;
