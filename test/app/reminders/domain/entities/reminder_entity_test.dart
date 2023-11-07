@@ -29,11 +29,13 @@ void main() {
         time: DateTime(2021, 11, 10),
         title: '',
         enabled: false,
+        days: List.filled(7, 0),
       ),
       ReminderEntity(
         time: DateTime(2021, 11, 10),
         title: '',
         enabled: false,
+        days: List.filled(7, 0),
       ),
     );
   });

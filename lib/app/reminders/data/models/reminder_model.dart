@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:habit_go/app/reminders/domain/entities/reminder_entity.dart';
 import 'package:isar/isar.dart';
 
@@ -9,12 +10,14 @@ class ReminderModel {
   String title;
   DateTime? time;
   bool enabled;
+  List<byte> days;
 
   ReminderModel({
     Id? id,
     this.title = '',
     this.time,
     this.enabled = true,
+    this.days = const [],
   }) : id = id ?? Isar.autoIncrement;
 
   factory ReminderModel.fromEntity(ReminderEntity entity) {
@@ -23,6 +26,7 @@ class ReminderModel {
       title: entity.title,
       time: entity.time,
       enabled: entity.enabled,
+      days: entity.days,
     );
   }
 
@@ -32,6 +36,7 @@ class ReminderModel {
       title: title,
       time: time ?? DateTime.now(),
       enabled: enabled,
+      days: days,
     );
   }
 
@@ -42,6 +47,7 @@ class ReminderModel {
     return other.id == id &&
         other.title == title &&
         other.time == time &&
+        listEquals(days, other.days) &&
         other.enabled == enabled;
   }
 

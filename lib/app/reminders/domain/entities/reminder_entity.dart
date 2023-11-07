@@ -1,14 +1,18 @@
+import 'package:flutter/foundation.dart';
+
 class ReminderEntity {
   final int id;
   final DateTime time;
   final String title;
   final bool enabled;
+  final List<int> days;
 
   const ReminderEntity({
     required this.time,
     required this.title,
     this.id = 0,
     this.enabled = true,
+    this.days = const [],
   });
 
   @override
@@ -18,6 +22,7 @@ class ReminderEntity {
     return other.time == time &&
         other.title == title &&
         other.enabled == enabled &&
+        listEquals(days, other.days) &&
         other.id == id;
   }
 
@@ -29,12 +34,14 @@ class ReminderEntity {
     DateTime? time,
     String? title,
     bool? enabled,
+    List<int>? days,
   }) {
     return ReminderEntity(
       time: time ?? this.time,
       title: title ?? this.title,
       enabled: enabled ?? this.enabled,
       id: id ?? this.id,
+      days: days ?? this.days,
     );
   }
 }
