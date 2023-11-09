@@ -57,9 +57,7 @@ class HabitGoApp extends StatelessWidget {
           BlocProvider<HabitsBloc>(
             create: (BuildContext context) => Dependency.get<HabitsBloc>()
               ..add(HabitLoadEvent())
-              ..add(
-                HabitClearEvent(),
-              ),
+              ..add(HabitClearEvent()),
           ),
           BlocProvider<ProgressBloc>(
             lazy: false,

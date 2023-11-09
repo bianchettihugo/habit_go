@@ -7,6 +7,7 @@ part 'reminder_model.g.dart';
 @collection
 class ReminderModel {
   Id? id;
+  short? habitId;
   String title;
   DateTime? time;
   bool enabled;
@@ -15,6 +16,7 @@ class ReminderModel {
   ReminderModel({
     Id? id,
     this.title = '',
+    this.habitId,
     this.time,
     this.enabled = true,
     this.days = const [],
@@ -23,6 +25,7 @@ class ReminderModel {
   factory ReminderModel.fromEntity(ReminderEntity entity) {
     return ReminderModel(
       id: entity.id,
+      habitId: entity.habitId,
       title: entity.title,
       time: entity.time,
       enabled: entity.enabled,
@@ -34,6 +37,7 @@ class ReminderModel {
     return ReminderEntity(
       id: id ?? 0,
       title: title,
+      habitId: habitId,
       time: time ?? DateTime.now(),
       enabled: enabled,
       days: days,
@@ -47,12 +51,13 @@ class ReminderModel {
     return other.id == id &&
         other.title == title &&
         other.time == time &&
+        other.habitId == habitId &&
         listEquals(days, other.days) &&
         other.enabled == enabled;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ title.hashCode ^ enabled.hashCode;
+    return id.hashCode ^ title.hashCode ^ enabled.hashCode ^ habitId.hashCode;
   }
 }
