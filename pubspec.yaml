@@ -33,6 +33,7 @@ dependencies:
   bloc_concurrency: ^0.2.2
   dataform: ^1.0.3
   equatable: ^2.0.5
+  timer_builder: ^2.0.0
 
 dev_dependencies:
   flutter_test:

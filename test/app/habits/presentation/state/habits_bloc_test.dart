@@ -3,6 +3,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase.dart';
@@ -23,6 +24,7 @@ void main() {
   late SaveHabitUsecase saveHabitsUsecase;
   late ResetHabitProgressUsecase resetHabitUsecase;
   late AddHabitProgressUsecase addHabitProgressUsecase;
+  late ClearHabitsProgressUsecase clearHabitProgressUsecase;
 
   setUp(() {
     fetchHabitsUsecase = MockFetchHabitsUsecase();
@@ -30,6 +32,7 @@ void main() {
     saveHabitsUsecase = MockSaveHabitUsecase();
     resetHabitUsecase = MockResetHabitProgressUsecase();
     addHabitProgressUsecase = MockAddHabitProgressUsecase();
+    clearHabitProgressUsecase = MockClearHabitsProgressUsecase();
   });
 
   final habit1 = habitEntity.copyWith(id: 1, title: 'Habit 1');
@@ -59,6 +62,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     act: (bloc) => bloc.add(HabitLoadEvent()),
@@ -84,6 +88,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     act: (bloc) => bloc.add(HabitLoadEvent()),
@@ -108,6 +113,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit2]),
@@ -133,6 +139,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit2]),
@@ -156,6 +163,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -181,6 +189,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -204,6 +213,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -229,6 +239,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -252,6 +263,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -277,6 +289,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -300,6 +313,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -320,6 +334,7 @@ void main() {
         saveHabitsUsecase: saveHabitsUsecase,
         resetHabitUsecase: resetHabitUsecase,
         addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
       );
     },
     seed: () => HabitState(habits: [habit1, habit2]),
@@ -328,6 +343,60 @@ void main() {
       HabitState(
         status: HabitStatus.toastError,
         error: 'Error message',
+      ),
+    ],
+  );
+
+  blocTest<HabitsBloc, HabitState>(
+    'habits/presentation/state - emits loading and loads habits when clear habit progress is successful',
+    build: () {
+      when(() => fetchHabitsUsecase())
+          .thenAnswer((_) async => Result.success(habits));
+      when(() => clearHabitProgressUsecase())
+          .thenAnswer((_) async => Result.success(true));
+      return HabitsBloc(
+        fetchHabitsUsecase: fetchHabitsUsecase,
+        deleteHabitsUsecase: deleteHabitsUsecase,
+        saveHabitsUsecase: saveHabitsUsecase,
+        resetHabitUsecase: resetHabitUsecase,
+        addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
+      );
+    },
+    seed: () => HabitState(habits: [habitEntity]),
+    act: (bloc) => bloc.add(HabitClearEvent()),
+    expect: () => [
+      HabitState(
+        habits: habits,
+        status: HabitStatus.loaded,
+      ),
+    ],
+  );
+
+  blocTest<HabitsBloc, HabitState>(
+    'habits/presentation/state - emits error when clear habit progress fails',
+    build: () {
+      when(() => clearHabitProgressUsecase()).thenAnswer(
+        (_) async => Result.failure(
+          const Failure(message: 'Error clearing habit progress'),
+        ),
+      );
+      return HabitsBloc(
+        fetchHabitsUsecase: fetchHabitsUsecase,
+        deleteHabitsUsecase: deleteHabitsUsecase,
+        saveHabitsUsecase: saveHabitsUsecase,
+        resetHabitUsecase: resetHabitUsecase,
+        addHabitProgressUsecase: addHabitProgressUsecase,
+        clearHabitProgress: clearHabitProgressUsecase,
+      );
+    },
+    seed: () => HabitState(habits: [habitEntity]),
+    act: (bloc) => bloc.add(HabitClearEvent()),
+    expect: () => [
+      HabitState(
+        status: HabitStatus.error,
+        error: 'Error clearing habit progress',
+        updateIndex: -1,
       ),
     ],
   );
