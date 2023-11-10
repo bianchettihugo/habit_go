@@ -36,6 +36,8 @@ import 'package:habit_go/app/reminders/presentation/state/reminders_state.dart';
 import 'package:habit_go/app/settings/data/datasources/settings_datasource.dart';
 import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 import 'package:habit_go/app/settings/domain/repositories/settings_repository.dart';
+import 'package:habit_go/app/settings/domain/usecases/get_settings_usecase.dart';
+import 'package:habit_go/app/settings/domain/usecases/save_settings_usecase.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/services/storage/storage_service.dart';
@@ -129,3 +131,7 @@ class MockFetchHabitReminderUsecase extends Mock
 
 class MockHabitFormCubit extends MockCubit<HabitFormState>
     implements HabitFormCubit {}
+
+class MockGetSettingsUsecase extends Mock implements GetSettingsUsecase {}
+
+class MockSaveSettingsUsecase extends Mock implements SaveSettingsUsecase {}
