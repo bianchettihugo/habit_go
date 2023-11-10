@@ -4,6 +4,7 @@ import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 import 'package:habit_go/app/settings/domain/usecases/get_settings_usecase.dart';
 import 'package:habit_go/app/settings/domain/usecases/save_settings_usecase.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
+import 'package:habit_go/core/utils/failure.dart';
 import 'package:habit_go/core/utils/result.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -45,6 +46,21 @@ void main() {
     expect: () => [
       const SettingsEntity(),
     ],
+  );
+
+  blocTest<SettingsCubit, SettingsEntity>(
+    'settings/presentation/state - emits the same state when getSettings returns a failure',
+    build: () {
+      when(() => getSettingsUsecase()).thenAnswer(
+        (_) async => Result.failure(const Failure()),
+      );
+      return SettingsCubit(
+        getSettingsUsecase: getSettingsUsecase,
+        saveSettingsUsecase: saveSettingsUsecase,
+      );
+    },
+    act: (cubit) => cubit.getSettings(),
+    expect: () => [],
   );
 
   blocTest<SettingsCubit, SettingsEntity>(
