@@ -28,10 +28,15 @@ class LocalReminderDatasource extends ReminderDatasource {
   }
 
   @override
-  Future<List<ReminderModel>> getReminders() async {
+  Future<List<ReminderModel>> getReminders([int? habitId]) async {
     var items = <ReminderModel>[];
     await _isar.txn(() async {
-      items = await _isar.reminderModels.where().findAll();
+      items = habitId != null
+          ? await _isar.reminderModels
+              .filter()
+              .habitIdEqualTo(habitId)
+              .findAll()
+          : await _isar.reminderModels.where().findAll();
     });
     return items;
   }

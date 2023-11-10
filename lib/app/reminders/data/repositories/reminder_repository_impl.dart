@@ -31,9 +31,9 @@ class ReminderRepositoryImpl extends ReminderRepository {
   }
 
   @override
-  Future<Result<List<ReminderEntity>>> getReminders() {
+  Future<Result<List<ReminderEntity>>> getReminders([int? habitId]) {
     return _handle<List<ReminderEntity>>(() async {
-      final result = await reminderDatasource.getReminders();
+      final result = await reminderDatasource.getReminders(habitId);
       if (result.isEmpty) {
         return Result.failure(const NoDataFailure());
       }
