@@ -5,4 +5,8 @@ abstract class ReminderRepository {
   Future<Result<List<ReminderEntity>>> getReminders([int? habitId]);
   Future<Result<ReminderEntity>> addReminder(ReminderEntity reminder);
   Future<Result<ReminderEntity>> deleteReminder(ReminderEntity reminder);
+  Future<Result<List<ReminderEntity>>> setHabitReminders({
+    required int habitId,
+    required List<ReminderEntity> reminders,
+  });
 }

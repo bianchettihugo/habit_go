@@ -179,4 +179,65 @@ void main() {
 
     expect(result, equals(Result.failure(const DatabaseFailure())));
   });
+
+  test(
+      'reminders/data/repositories - should return success result when setting habit reminders',
+      () async {
+    const habitId = 1;
+    final reminders = [
+      reminderEntity.copyWith(id: 1),
+      reminderEntity.copyWith(id: 2),
+    ];
+    final reminderModels = reminders.map(ReminderModel.fromEntity).toList();
+    final reminderEntities = reminderModels.map((e) => e.toEntity()).toList();
+    when(
+      () => datasource.setHabitReminders(
+        habitId: habitId,
+        reminders: reminderModels,
+      ),
+    ).thenAnswer((_) async => reminderModels);
+
+    final result = await repository.setHabitReminders(
+      habitId: habitId,
+      reminders: reminders,
+    );
+
+    expect(result.data, reminderEntities);
+    verify(
+      () => datasource.setHabitReminders(
+        habitId: habitId,
+        reminders: reminderModels,
+      ),
+    ).called(1);
+  });
+
+  test(
+      'reminders/data/repositories - should return failure result when setting habit reminders fails',
+      () async {
+    const habitId = 1;
+    final reminders = [
+      reminderEntity.copyWith(id: 1),
+      reminderEntity.copyWith(id: 2),
+    ];
+    final reminderModels = reminders.map(ReminderModel.fromEntity).toList();
+    when(
+      () => datasource.setHabitReminders(
+        habitId: habitId,
+        reminders: reminderModels,
+      ),
+    ).thenThrow(Exception());
+
+    final result = await repository.setHabitReminders(
+      habitId: habitId,
+      reminders: reminders,
+    );
+
+    expect(result, equals(Result.failure(const Failure())));
+    verify(
+      () => datasource.setHabitReminders(
+        habitId: habitId,
+        reminders: reminderModels,
+      ),
+    ).called(1);
+  });
 }

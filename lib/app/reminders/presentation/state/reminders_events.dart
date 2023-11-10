@@ -26,3 +26,16 @@ class ReminderDeleteEvent extends ReminderEvent {
   @override
   List<Object?> get props => [reminder];
 }
+
+class ReminderSetEvent extends ReminderEvent {
+  final int habitId;
+  final List<ReminderEntity> reminders;
+
+  ReminderSetEvent({
+    required this.habitId,
+    required this.reminders,
+  });
+
+  @override
+  List<Object?> get props => [reminders, habitId];
+}

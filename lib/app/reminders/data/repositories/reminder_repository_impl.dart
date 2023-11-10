@@ -41,6 +41,20 @@ class ReminderRepositoryImpl extends ReminderRepository {
     });
   }
 
+  @override
+  Future<Result<List<ReminderEntity>>> setHabitReminders({
+    required int habitId,
+    required List<ReminderEntity> reminders,
+  }) {
+    return _handle<List<ReminderEntity>>(() async {
+      final result = await reminderDatasource.setHabitReminders(
+        habitId: habitId,
+        reminders: reminders.map(ReminderModel.fromEntity).toList(),
+      );
+      return Result.success(result.map((e) => e.toEntity()).toList());
+    });
+  }
+
   Future<Result<T>> _handle<T>(Function f) async {
     try {
       return await f();

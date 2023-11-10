@@ -29,6 +29,7 @@ import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.d
 import 'package:habit_go/app/reminders/domain/usecases/add_reminder_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/delete_reminder_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/set_habit_reminders_usecase.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_events.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_state.dart';
@@ -111,6 +112,9 @@ class MockFetchRemindersUsecase extends Mock implements FetchRemindersUsecase {}
 class MockDeleteReminderUsecase extends Mock implements DeleteReminderUsecase {}
 
 class MockAddReminderUsecase extends Mock implements AddReminderUsecase {}
+
+class MockSetHabitRemindersUsecase extends Mock
+    implements SetHabitRemindersUsecase {}
 
 class MockReminderBloc extends MockBloc<ReminderEvent, ReminderState>
     implements RemindersBloc {}

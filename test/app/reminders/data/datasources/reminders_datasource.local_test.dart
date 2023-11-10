@@ -58,6 +58,34 @@ void main() {
     expect(result, [reminder1]);
   });
 
+  test('reminders/data/datasources - should set habit reminders', () async {
+    const habitId = 1;
+    final reminders = [
+      ReminderModel(
+        id: 1,
+        habitId: habitId,
+        title: 'Reminder 1',
+        time: DateTime.now(),
+      ),
+      ReminderModel(
+        id: 2,
+        habitId: habitId,
+        title: 'Reminder 2',
+        time: DateTime.now(),
+      ),
+    ];
+
+    final result = await datasource.setHabitReminders(
+      habitId: habitId,
+      reminders: reminders,
+    );
+
+    expect(result, reminders);
+
+    final storedReminders = await datasource.getReminders(habitId);
+    expect(storedReminders, reminders);
+  });
+
   tearDownAll(() {
     isar.close(deleteFromDisk: true);
   });
