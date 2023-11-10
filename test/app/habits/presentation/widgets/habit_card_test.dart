@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/pages/habits_form_page.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_card.dart';
+import 'package:habit_go/core/services/dependency/dependency_service.dart';
+import 'package:habit_go/core/utils/result.dart';
 import 'package:habit_go/core/widgets/checkboxes/checkbox_indicator.dart';
 import 'package:habit_go/core/widgets/inputs/number_input.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../utils/data.dart';
+import '../../../../utils/mocks.dart';
 import '../../../../utils/test_utils.dart';
 
 void main() {
+  final usecase = MockFetchHabitReminderUsecase();
   late HabitEntity habit;
 
   setUp(() {
+    Dependency.register<FetchHabitReminderUsecase>(
+      usecase,
+    );
     habit = habitEntity2;
+  });
+
+  tearDown(() {
+    GetIt.I.unregister<FetchHabitReminderUsecase>();
   });
 
   testWidgets('habits/presentation/widgets - renders HabitCard',
@@ -76,6 +90,9 @@ void main() {
   testWidgets(
       'habits/presentation/widgets - should call onClosed when closed with data',
       (WidgetTester tester) async {
+    when(() => usecase.call(habitId: 0)).thenAnswer(
+      (invocation) async => Result.success([]),
+    );
     var data = {};
     await tester.pumpWidgetWithApp(
       HabitCard(
@@ -96,7 +113,7 @@ void main() {
     await tester.tap(find.text('Update habit'));
     await tester.pumpAndSettle();
 
-    expect(data, habitDataUpdate);
+    expect(data, habitDataUpdate2);
   });
 
   testWidgets('habits/presentation/widgets - should call onPressed when tapped',

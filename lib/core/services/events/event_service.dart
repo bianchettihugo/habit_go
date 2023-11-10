@@ -20,6 +20,14 @@ class EventService {
     streamController.add(event);
   }
 
+  Future<T> addAndWait<T>(dynamic event) async {
+    streamController.add(event);
+    final result = await streamController.stream.firstWhere(
+      (element) => element is T,
+    );
+    return result;
+  }
+
   void destroy() {
     _streamController.close();
   }

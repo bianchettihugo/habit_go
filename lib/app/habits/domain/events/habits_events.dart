@@ -34,3 +34,21 @@ class HabitResetProgressEvent extends Event {
     required this.day,
   });
 }
+
+class HabitRemindersRequestEvent extends Event {
+  final int habitId;
+
+  HabitRemindersRequestEvent({
+    required this.habitId,
+  });
+
+  @override
+  bool operator ==(covariant HabitRemindersRequestEvent other) {
+    if (identical(this, other)) return true;
+
+    return other.habitId == habitId;
+  }
+
+  @override
+  int get hashCode => habitId.hashCode;
+}

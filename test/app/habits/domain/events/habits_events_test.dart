@@ -9,5 +9,14 @@ void main() {
     HabitDeleteEvent(entity: habitEntity);
     HabitActionEvent(day: 0);
     HabitResetProgressEvent(progress: 0, day: 0);
+    HabitRemindersRequestEvent(habitId: 0);
+    expect(
+      HabitRemindersRequestEvent(habitId: 0),
+      HabitRemindersRequestEvent(habitId: 0),
+    );
+    expect(
+      HabitRemindersRequestEvent(habitId: 0).hashCode,
+      HabitRemindersRequestEvent(habitId: 0).hashCode,
+    );
   });
 }

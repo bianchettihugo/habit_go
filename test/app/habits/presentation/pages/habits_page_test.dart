@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
+import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/pages/habits_page.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_card.dart';
+import 'package:habit_go/core/services/dependency/dependency_service.dart';
+import 'package:habit_go/core/utils/result.dart';
 import 'package:habit_go/core/widgets/calendar/calendar_widget.dart';
 import 'package:habit_go/core/widgets/errors/error_widget.dart';
 import 'package:habit_go/core/widgets/icons/feather_icons_icons.dart';
@@ -17,10 +21,18 @@ import '../../../../utils/data.dart';
 import '../../../../utils/mocks.dart';
 
 void main() {
+  final usecase = MockFetchHabitReminderUsecase();
   late HabitsBloc habitsBloc;
 
   setUp(() {
+    Dependency.register<FetchHabitReminderUsecase>(
+      usecase,
+    );
     habitsBloc = MockHabitsBloc();
+  });
+
+  tearDown(() {
+    GetIt.I.unregister<FetchHabitReminderUsecase>();
   });
 
   testWidgets('habits/presentation/pages - renders CalendarWidget',
@@ -256,6 +268,9 @@ void main() {
 
   testWidgets('habits/presentation/pages - calls HabitsBloc on HabitReset',
       (tester) async {
+    when(() => usecase.call(habitId: 0)).thenAnswer(
+      (invocation) async => Result.success([]),
+    );
     final habit = habitEntity2;
 
     when(() => habitsBloc.state).thenReturn(
@@ -295,6 +310,9 @@ void main() {
 
   testWidgets('habits/presentation/pages - calls HabitsBloc on HabitDelete',
       (tester) async {
+    when(() => usecase.call(habitId: 0)).thenAnswer(
+      (invocation) async => Result.success([]),
+    );
     final habit = habitEntity2;
 
     when(() => habitsBloc.state).thenReturn(
@@ -331,6 +349,9 @@ void main() {
 
   testWidgets('habits/presentation/pages - calls HabitsBloc on HabitAdd',
       (tester) async {
+    when(() => usecase.call(habitId: 0)).thenAnswer(
+      (invocation) async => Result.success([]),
+    );
     when(() => habitsBloc.state).thenReturn(
       HabitState(
         habits: [],
@@ -359,13 +380,16 @@ void main() {
 
     verify(
       () => habitsBloc.add(
-        HabitAddEvent(habitDataCreate),
+        HabitAddEvent(habitDataCreate2),
       ),
     ).called(1);
   });
 
   testWidgets('habits/presentation/pages - calls HabitsBloc on HabitUpdate',
       (tester) async {
+    when(() => usecase.call(habitId: 0)).thenAnswer(
+      (invocation) async => Result.success([]),
+    );
     final habit = habitEntity2;
 
     when(() => habitsBloc.state).thenReturn(
@@ -394,7 +418,7 @@ void main() {
 
     verify(
       () => habitsBloc.add(
-        HabitUpdateEvent(habitDataUpdate),
+        HabitUpdateEvent(habitDataUpdate2),
       ),
     ).called(1);
   });

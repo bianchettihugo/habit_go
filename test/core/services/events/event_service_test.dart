@@ -91,4 +91,16 @@ void main() {
       expect(events.length, 1);
     });
   });
+
+  test('core/services - Add and wait for response', () async {
+    final eventBus = EventService();
+    eventBus.on<EventA>().listen((event) {
+      eventBus.add('test');
+    });
+    final f = eventBus.addAndWait<String>(EventA('a1'));
+
+    final result = await f;
+    expect(result, 'test');
+    eventBus.destroy();
+  });
 }
