@@ -56,6 +56,8 @@ Future<void> main() async {
   SettingsModule.init();
   AppModule.init();
 
+  await Future.delayed(const Duration(milliseconds: 1500));
+
   runApp(const HabitGoApp());
 }
 
