@@ -85,6 +85,12 @@ class _TimeInputState extends State<TimeInput> {
           id: widget.id ?? '',
           controller: controller,
           readOnly: true,
+          formatter: (date) {
+            return DateTime.now().copyWith(
+              hour: int.tryParse(date?.split(':').first ?? '') ?? 0,
+              minute: int.tryParse(date?.split(':').last ?? '') ?? 0,
+            );
+          },
           onTap: () async {
             final time = await showTimePicker(
               initialTime: TimeOfDay.now(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/pages/habits_form_page.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_form_cubit.dart';
@@ -20,15 +21,21 @@ import '../../../../utils/test_utils.dart';
 
 void main() {
   final usecase = MockFetchHabitReminderUsecase();
+  final usecase2 = MockCheckHabitReminderPermissionsUsecase();
 
   setUp(() {
     Dependency.register<FetchHabitReminderUsecase>(
       usecase,
     );
+
+    Dependency.register<CheckHabitReminderPermissionsUsecase>(
+      usecase2,
+    );
   });
 
   tearDown(() {
     GetIt.I.unregister<FetchHabitReminderUsecase>();
+    GetIt.I.unregister<CheckHabitReminderPermissionsUsecase>();
   });
 
   testWidgets('habits/presentation/pages - renders HabitFormAppBar',
@@ -85,8 +92,25 @@ void main() {
 
   testWidgets('habits/presentation/pages - renders reminders switch',
       (tester) async {
+    late BuildContext ctx;
+
+    await tester.pumpWidgetWithApp(
+      Builder(
+        builder: (context) {
+          ctx = context;
+          return const SizedBox();
+        },
+      ),
+    );
+
+    registerFallbackValue(ctx);
+
+    when(() => usecase2.call(context: any(named: 'context')))
+        .thenAnswer((invocation) async => true);
+
     final cubit = HabitFormCubit(
       fetchHabitReminders: MockFetchHabitReminderUsecase(),
+      checkHabitReminderPermissions: MockCheckHabitReminderPermissionsUsecase(),
     );
     await tester.pumpWidgetWithApp(
       BlocProvider.value(

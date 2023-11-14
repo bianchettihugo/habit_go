@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:habit_go/app/habits/domain/events/habits_events.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
+import 'package:habit_go/app/reminders/domain/entities/reminder_entity.dart';
 import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_by_habit_id_usecase.dart';
+import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
+import 'package:habit_go/app/reminders/presentation/state/reminders_events.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 
@@ -66,6 +69,26 @@ class AppModule {
         );
       },
     );
+
+    Dependency.get<EventService>()
+        .on<HabitRemindersChangedEvent>()
+        .listen((event) {
+      final reminders = event.reminders
+          .map(
+            (e) => ReminderEntity(
+              time: e,
+              title: event.title,
+              days: event.days,
+            ),
+          )
+          .toList();
+      Dependency.get<RemindersBloc>().add(
+        ReminderSetEvent(
+          habitId: event.habitId,
+          reminders: reminders,
+        ),
+      );
+    });
 
     if (kDebugMode) print('\x1B[36m-==== APP MODULE INITIALIZED ====-');
   }

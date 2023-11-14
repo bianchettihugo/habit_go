@@ -11,11 +11,11 @@ class LocalHabitDatasource extends HabitDatasource {
 
   @override
   Future<HabitModel> createHabit(HabitModel habit) async {
-    await _isar.writeTxn(() async {
+    final id = await _isar.writeTxn(() async {
       return _isar.habitModels.put(habit);
     });
 
-    return habit;
+    return habit.copyWith(id: id);
   }
 
   @override
@@ -29,11 +29,11 @@ class LocalHabitDatasource extends HabitDatasource {
 
   @override
   Future<HabitModel> updateHabit(HabitModel habit) async {
-    await _isar.writeTxn(() async {
+    final id = await _isar.writeTxn(() async {
       return _isar.habitModels.put(habit);
     });
 
-    return habit;
+    return habit.copyWith(id: id);
   }
 
   @override

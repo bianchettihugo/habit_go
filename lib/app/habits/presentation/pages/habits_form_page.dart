@@ -2,6 +2,7 @@ import 'package:dataform/dataform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_form_cubit.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_form_app_bar.dart';
@@ -50,6 +51,8 @@ class HabitFormPage extends StatelessWidget {
       create: (context) {
         final cubit = HabitFormCubit(
           fetchHabitReminders: Dependency.get<FetchHabitReminderUsecase>(),
+          checkHabitReminderPermissions:
+              Dependency.get<CheckHabitReminderPermissionsUsecase>(),
         );
 
         if (habit != null && habit!.id != null) {
@@ -117,6 +120,9 @@ class HabitFormPage extends StatelessWidget {
                             SwitchOption(
                               id: 'notify',
                               title: 'Reminders',
+                              conditional: () => context
+                                  .read<HabitFormCubit>()
+                                  .checkHabitReminderPermissions(context),
                               onChanged: (value) {
                                 if (value) {
                                   context.read<HabitFormCubit>().addReminder(

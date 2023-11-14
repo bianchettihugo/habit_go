@@ -6,6 +6,7 @@ import 'package:habit_go/app/habits/data/datasources/habit_datasource.local.dart
 import 'package:habit_go/app/habits/data/repositories/habit_repository_impl.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
@@ -14,6 +15,7 @@ import 'package:habit_go/app/habits/domain/usecases/save_habit_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
+import 'package:habit_go/core/services/notifications/notification_service.dart';
 import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:isar/isar.dart';
 
@@ -69,6 +71,12 @@ class HabitsModule {
       ResetHabitProgressUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
         eventService: Dependency.get<EventService>(),
+      ),
+    );
+
+    Dependency.register<CheckHabitReminderPermissionsUsecase>(
+      CheckHabitReminderPermissionsUsecaseImpl(
+        notificationService: Dependency.get<NotificationService>(),
       ),
     );
 
