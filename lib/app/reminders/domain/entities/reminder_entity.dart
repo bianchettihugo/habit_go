@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class ReminderEntity {
   final int id;
+  final int? habitId;
   final DateTime time;
   final String title;
   final bool enabled;
@@ -10,6 +11,7 @@ class ReminderEntity {
   const ReminderEntity({
     required this.time,
     required this.title,
+    this.habitId,
     this.id = 0,
     this.enabled = true,
     this.days = const [],
@@ -21,13 +23,15 @@ class ReminderEntity {
 
     return other.time == time &&
         other.title == title &&
+        other.habitId == habitId &&
         other.enabled == enabled &&
         listEquals(days, other.days) &&
         other.id == id;
   }
 
   @override
-  int get hashCode => title.hashCode ^ enabled.hashCode ^ id.hashCode;
+  int get hashCode =>
+      title.hashCode ^ enabled.hashCode ^ id.hashCode ^ habitId.hashCode;
 
   ReminderEntity copyWith({
     int? id,
