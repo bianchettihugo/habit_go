@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase.dart';
@@ -16,6 +17,7 @@ class HabitsBloc extends Bloc<HabitEvent, HabitState> {
   final SaveHabitUsecase _saveHabits;
   final ResetHabitProgressUsecase _resetHabit;
   final AddHabitProgressUsecase _addHabitProgress;
+  final ClearHabitsProgressUsecase _clearHabitProgress;
 
   HabitsBloc({
     required FetchHabitsUsecase fetchHabitsUsecase,
@@ -23,11 +25,13 @@ class HabitsBloc extends Bloc<HabitEvent, HabitState> {
     required SaveHabitUsecase saveHabitsUsecase,
     required ResetHabitProgressUsecase resetHabitUsecase,
     required AddHabitProgressUsecase addHabitProgressUsecase,
+    required ClearHabitsProgressUsecase clearHabitProgress,
   })  : _fetchHabits = fetchHabitsUsecase,
         _deleteHabits = deleteHabitsUsecase,
         _saveHabits = saveHabitsUsecase,
         _resetHabit = resetHabitUsecase,
         _addHabitProgress = addHabitProgressUsecase,
+        _clearHabitProgress = clearHabitProgress,
         super(HabitState()) {
     on<HabitLoadEvent>(_onLoad);
     on<HabitAddEvent>(_onAdd);
@@ -35,6 +39,7 @@ class HabitsBloc extends Bloc<HabitEvent, HabitState> {
     on<HabitDeleteEvent>(_onDelete);
     on<HabitProgressEvent>(_onProgress, transformer: sequential());
     on<HabitResetEvent>(_onReset);
+    on<HabitClearEvent>(_onClearProgress, transformer: sequential());
   }
 
   Future<void> _onLoad(HabitLoadEvent event, Emitter<HabitState> emit) async {
@@ -191,6 +196,29 @@ class HabitsBloc extends Bloc<HabitEvent, HabitState> {
           );
         }
       }),
+    );
+  }
+
+  Future<void> _onClearProgress(
+    HabitClearEvent event,
+    Emitter<HabitState> emit,
+  ) async {
+    emit(state.copyWith(status: HabitStatus.loading));
+
+    final result = await _clearHabitProgress();
+    result.when(
+      success: (result) {
+        if (result) add(HabitLoadEvent());
+      },
+      failure: (error) {
+        emit(
+          HabitState(
+            status: HabitStatus.error,
+            error: error.message,
+            updateIndex: -1,
+          ),
+        );
+      },
     );
   }
 }

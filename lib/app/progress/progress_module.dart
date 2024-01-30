@@ -11,6 +11,7 @@ import 'package:habit_go/app/progress/domain/usecases/save_progress_usecase.dart
 import 'package:habit_go/app/progress/domain/usecases/update_actions_done_usecase.dart';
 import 'package:habit_go/app/progress/domain/usecases/update_total_actions_usecase.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
+import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:isar/isar.dart';
 
 import '../../core/services/dependency/dependency_service.dart';
@@ -44,6 +45,7 @@ class ProgressModule {
     Dependency.register<ResetProgressUsecase>(
       ResetProgressUsecaseImpl(
         repository: Dependency.get<ProgressRepository>(),
+        storageService: Dependency.get<StorageService>(),
       ),
     );
 

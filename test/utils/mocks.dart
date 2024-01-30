@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_go/app/habits/data/datasources/habit_datasource.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase.dart';
@@ -33,6 +34,7 @@ import 'package:habit_go/app/settings/domain/entities/settings_entity.dart';
 import 'package:habit_go/app/settings/domain/repositories/settings_repository.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
+import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,6 +76,9 @@ class MockResetHabitProgressUsecase extends Mock
 class MockAddHabitProgressUsecase extends Mock
     implements AddHabitProgressUsecase {}
 
+class MockClearHabitsProgressUsecase extends Mock
+    implements ClearHabitsProgressUsecase {}
+
 class MockHabitsBloc extends MockBloc<HabitEvent, HabitState>
     implements HabitsBloc {}
 
@@ -109,3 +114,5 @@ class MockReminderBloc extends MockBloc<ReminderEvent, ReminderState>
 
 class MockSettingsCubit extends MockCubit<SettingsEntity>
     implements SettingsCubit {}
+
+class MockStorageService extends Mock implements StorageService {}
