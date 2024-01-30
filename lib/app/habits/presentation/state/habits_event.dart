@@ -81,3 +81,8 @@ class HabitResetEvent extends HabitEvent {
   @override
   List<Object?> get props => [index, habit];
 }
+
+class HabitClearEvent extends HabitEvent {
+  @override
+  List<Object?> get props => [];
+}

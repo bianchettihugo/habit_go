@@ -14,6 +14,7 @@ import 'package:habit_go/app/habits/domain/usecases/save_habit_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
+import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:isar/isar.dart';
 
 class HabitsModule {
@@ -57,9 +58,10 @@ class HabitsModule {
       ),
     );
 
-    Dependency.register<CleatHabitsProgressUsecase>(
-      CleatHabitsProgressUsecaseImpl(
+    Dependency.register<ClearHabitsProgressUsecase>(
+      ClearHabitsProgressUsecaseImpl(
         repository: Dependency.get<HabitRepository>(),
+        storageService: Dependency.get<StorageService>(),
       ),
     );
 
@@ -70,13 +72,14 @@ class HabitsModule {
       ),
     );
 
-    Dependency.registerFactory(
+    Dependency.registerLazy(
       HabitsBloc(
         fetchHabitsUsecase: Dependency.get<FetchHabitsUsecase>(),
         deleteHabitsUsecase: Dependency.get<DeleteHabitUsecase>(),
         saveHabitsUsecase: Dependency.get<SaveHabitUsecase>(),
         resetHabitUsecase: Dependency.get<ResetHabitProgressUsecase>(),
         addHabitProgressUsecase: Dependency.get<AddHabitProgressUsecase>(),
+        clearHabitProgress: Dependency.get<ClearHabitsProgressUsecase>(),
       ),
     );
 

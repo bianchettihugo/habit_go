@@ -61,4 +61,12 @@ void main() {
     expect(event.hashCode, HabitLoadEvent().hashCode);
     expect(event.props, HabitLoadEvent().props);
   });
+
+  test('habits/presentation/state - HabitClearEvent equality test', () async {
+    final event = HabitClearEvent();
+
+    expect(event, HabitClearEvent());
+    expect(event.hashCode, HabitClearEvent().hashCode);
+    expect(event.props, HabitClearEvent().props);
+  });
 }

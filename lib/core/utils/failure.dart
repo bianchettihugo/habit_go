@@ -42,3 +42,7 @@ class InvalidDataFailure extends Failure {
 class NoDataFailure extends Failure {
   const NoDataFailure();
 }
+
+class NoActionFailure extends Failure {
+  const NoActionFailure();
+}

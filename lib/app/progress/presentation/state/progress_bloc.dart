@@ -8,6 +8,7 @@ import 'package:habit_go/app/progress/domain/usecases/update_actions_done_usecas
 import 'package:habit_go/app/progress/domain/usecases/update_total_actions_usecase.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_state.dart';
+import 'package:habit_go/core/utils/failure.dart';
 
 class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
   final GetProgressUsecase _getProgress;
@@ -28,7 +29,7 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     on<ProgressLoadEvent>(_onLoad);
     on<ProgressActionEvent>(_onAction, transformer: sequential());
     on<ProgressUpdateEvent>(_onUpdate);
-    on<ProgressResetEvent>(_onReset);
+    on<ProgressResetEvent>(_onReset, transformer: sequential());
   }
 
   FutureOr<void> _onLoad(
@@ -139,12 +140,14 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
         );
       },
       failure: (error) {
-        emit(
-          ProgressState(
-            status: ProgressStatus.error,
-            error: error.message,
-          ),
-        );
+        if (error is! NoActionFailure) {
+          emit(
+            ProgressState(
+              status: ProgressStatus.error,
+              error: error.message,
+            ),
+          );
+        }
       },
     );
   }
