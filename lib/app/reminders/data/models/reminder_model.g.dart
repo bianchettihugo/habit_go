@@ -17,23 +17,33 @@ const ReminderModelSchema = CollectionSchema(
   name: r'ReminderModel',
   id: -6553527084112746384,
   properties: {
-    r'enabled': PropertySchema(
+    r'days': PropertySchema(
       id: 0,
+      name: r'days',
+      type: IsarType.byteList,
+    ),
+    r'enabled': PropertySchema(
+      id: 1,
       name: r'enabled',
       type: IsarType.bool,
     ),
+    r'habitId': PropertySchema(
+      id: 2,
+      name: r'habitId',
+      type: IsarType.int,
+    ),
     r'hashCode': PropertySchema(
-      id: 1,
+      id: 3,
       name: r'hashCode',
       type: IsarType.long,
     ),
     r'time': PropertySchema(
-      id: 2,
+      id: 4,
       name: r'time',
       type: IsarType.dateTime,
     ),
     r'title': PropertySchema(
-      id: 3,
+      id: 5,
       name: r'title',
       type: IsarType.string,
     )
@@ -58,6 +68,7 @@ int _reminderModelEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.days.length;
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
@@ -68,10 +79,12 @@ void _reminderModelSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeBool(offsets[0], object.enabled);
-  writer.writeLong(offsets[1], object.hashCode);
-  writer.writeDateTime(offsets[2], object.time);
-  writer.writeString(offsets[3], object.title);
+  writer.writeByteList(offsets[0], object.days);
+  writer.writeBool(offsets[1], object.enabled);
+  writer.writeInt(offsets[2], object.habitId);
+  writer.writeLong(offsets[3], object.hashCode);
+  writer.writeDateTime(offsets[4], object.time);
+  writer.writeString(offsets[5], object.title);
 }
 
 ReminderModel _reminderModelDeserialize(
@@ -81,10 +94,12 @@ ReminderModel _reminderModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = ReminderModel(
-    enabled: reader.readBoolOrNull(offsets[0]) ?? true,
+    days: reader.readByteList(offsets[0]) ?? const [],
+    enabled: reader.readBoolOrNull(offsets[1]) ?? true,
+    habitId: reader.readIntOrNull(offsets[2]),
     id: id,
-    time: reader.readDateTimeOrNull(offsets[2]),
-    title: reader.readStringOrNull(offsets[3]) ?? '',
+    time: reader.readDateTimeOrNull(offsets[4]),
+    title: reader.readStringOrNull(offsets[5]) ?? '',
   );
   return object;
 }
@@ -97,12 +112,16 @@ P _reminderModelDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readBoolOrNull(offset) ?? true) as P;
+      return (reader.readByteList(offset) ?? const []) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? true) as P;
     case 2:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readIntOrNull(offset)) as P;
     case 3:
+      return (reader.readLong(offset)) as P;
+    case 4:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 5:
       return (reader.readStringOrNull(offset) ?? '') as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -206,11 +225,230 @@ extension ReminderModelQueryWhere
 extension ReminderModelQueryFilter
     on QueryBuilder<ReminderModel, ReminderModel, QFilterCondition> {
   QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'days',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'days',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'days',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'days',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      daysLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'days',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
       enabledEqualTo(bool value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'enabled',
         value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'habitId',
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'habitId',
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'habitId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'habitId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'habitId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterFilterCondition>
+      habitIdBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'habitId',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -572,6 +810,18 @@ extension ReminderModelQuerySortBy
     });
   }
 
+  QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> sortByHabitId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'habitId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> sortByHabitIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'habitId', Sort.desc);
+    });
+  }
+
   QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> sortByHashCode() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'hashCode', Sort.asc);
@@ -621,6 +871,18 @@ extension ReminderModelQuerySortThenBy
   QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> thenByEnabledDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enabled', Sort.desc);
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> thenByHabitId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'habitId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QAfterSortBy> thenByHabitIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'habitId', Sort.desc);
     });
   }
 
@@ -676,9 +938,21 @@ extension ReminderModelQuerySortThenBy
 
 extension ReminderModelQueryWhereDistinct
     on QueryBuilder<ReminderModel, ReminderModel, QDistinct> {
+  QueryBuilder<ReminderModel, ReminderModel, QDistinct> distinctByDays() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'days');
+    });
+  }
+
   QueryBuilder<ReminderModel, ReminderModel, QDistinct> distinctByEnabled() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'enabled');
+    });
+  }
+
+  QueryBuilder<ReminderModel, ReminderModel, QDistinct> distinctByHabitId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'habitId');
     });
   }
 
@@ -710,9 +984,21 @@ extension ReminderModelQueryProperty
     });
   }
 
+  QueryBuilder<ReminderModel, List<int>, QQueryOperations> daysProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'days');
+    });
+  }
+
   QueryBuilder<ReminderModel, bool, QQueryOperations> enabledProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'enabled');
+    });
+  }
+
+  QueryBuilder<ReminderModel, int?, QQueryOperations> habitIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'habitId');
     });
   }
 

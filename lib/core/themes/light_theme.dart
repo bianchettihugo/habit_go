@@ -3,6 +3,7 @@ import 'package:habit_go/core/themes/theme_colors.dart';
 
 class LightTheme {
   ThemeData get theme => ThemeData(
+        useMaterial3: false,
         brightness: Brightness.light,
         primaryColor: const Color(0xffEE4B67),
         cardColor: const Color(0xffEEEEEE),

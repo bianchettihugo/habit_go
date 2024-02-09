@@ -10,7 +10,9 @@ import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
 import 'package:habit_go/app/progress/progress_module.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
+import 'package:habit_go/app/reminders/reminders_module.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
+import 'package:habit_go/app/settings/settings_module.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 import 'package:habit_go/core/services/storage/storage_service.dart';
@@ -32,6 +34,7 @@ Future<void> main() async {
   );
 
   Dependency.register<Isar>(isar);
+  Dependency.register<SharedPreferences>(sp);
   Dependency.register<EventService>(EventService());
   Dependency.register<StorageService>(
     StorageServiceImpl(sharedPreferences: sp),
@@ -39,6 +42,8 @@ Future<void> main() async {
 
   HabitsModule.init();
   ProgressModule.init();
+  RemindersModule.init();
+  SettingsModule.init();
   AppModule.init();
 
   runApp(const HabitGoApp());
@@ -57,9 +62,7 @@ class HabitGoApp extends StatelessWidget {
           BlocProvider<HabitsBloc>(
             create: (BuildContext context) => Dependency.get<HabitsBloc>()
               ..add(HabitLoadEvent())
-              ..add(
-                HabitClearEvent(),
-              ),
+              ..add(HabitClearEvent()),
           ),
           BlocProvider<ProgressBloc>(
             lazy: false,
