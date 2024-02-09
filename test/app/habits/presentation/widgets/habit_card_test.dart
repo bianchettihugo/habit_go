@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_go/app/habits/domain/entities/habit_entity.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/pages/habits_form_page.dart';
 import 'package:habit_go/app/habits/presentation/widgets/habit_card.dart';
@@ -17,17 +18,22 @@ import '../../../../utils/test_utils.dart';
 
 void main() {
   final usecase = MockFetchHabitReminderUsecase();
+  final usecase2 = MockCheckHabitReminderPermissionsUsecase();
   late HabitEntity habit;
 
   setUp(() {
     Dependency.register<FetchHabitReminderUsecase>(
       usecase,
     );
+    Dependency.register<CheckHabitReminderPermissionsUsecase>(
+      usecase2,
+    );
     habit = habitEntity2;
   });
 
   tearDown(() {
     GetIt.I.unregister<FetchHabitReminderUsecase>();
+    GetIt.I.unregister<CheckHabitReminderPermissionsUsecase>();
   });
 
   testWidgets('habits/presentation/widgets - renders HabitCard',

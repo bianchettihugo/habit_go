@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_form_cubit.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_form_state.dart';
@@ -13,12 +14,15 @@ void main() {
   final date = DateTime.now();
   const failure = Failure(message: 'Error');
   late FetchHabitReminderUsecase fetchHabitReminderUsecase;
+  late CheckHabitReminderPermissionsUsecase checkHabitReminderPermissions;
   late HabitFormCubit habitFormCubit;
 
   setUp(() {
     fetchHabitReminderUsecase = MockFetchHabitReminderUsecase();
+    checkHabitReminderPermissions = MockCheckHabitReminderPermissionsUsecase();
     habitFormCubit = HabitFormCubit(
       fetchHabitReminders: fetchHabitReminderUsecase,
+      checkHabitReminderPermissions: checkHabitReminderPermissions,
     );
   });
 

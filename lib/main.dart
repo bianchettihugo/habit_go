@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_go/app/app_module.dart';
@@ -15,6 +16,8 @@ import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 import 'package:habit_go/app/settings/settings_module.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
+import 'package:habit_go/core/services/notifications/notification_service.dart';
+import 'package:habit_go/core/services/notifications/notification_service_impl.dart';
 import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:habit_go/core/services/storage/storage_service_impl.dart';
 import 'package:habit_go/habitgo.dart';
@@ -35,7 +38,14 @@ Future<void> main() async {
 
   Dependency.register<Isar>(isar);
   Dependency.register<SharedPreferences>(sp);
+  Dependency.register<AwesomeNotifications>(AwesomeNotifications());
+
   Dependency.register<EventService>(EventService());
+  Dependency.register<NotificationService>(
+    NotificationServiceImpl(
+      awesomeNotifications: Dependency.get<AwesomeNotifications>(),
+    ),
+  );
   Dependency.register<StorageService>(
     StorageServiceImpl(sharedPreferences: sp),
   );

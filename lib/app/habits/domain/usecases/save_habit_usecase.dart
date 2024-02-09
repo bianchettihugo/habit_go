@@ -57,6 +57,22 @@ class SaveHabitUsecaseImpl extends SaveHabitUsecase {
 
     if (result.data != null) {
       _eventService.add(HabitSavedEvent(data: data));
+      if (data['reminders'] != null) {
+        final dates = <DateTime>[];
+        for (final reminder in data['reminders'].values) {
+          if (reminder != null) {
+            dates.add(reminder);
+          }
+        }
+        _eventService.add(
+          HabitRemindersChangedEvent(
+            habitId: result.data!.id!,
+            reminders: dates,
+            days: data['days'],
+            title: data['name'].toString(),
+          ),
+        );
+      }
     }
 
     return result;

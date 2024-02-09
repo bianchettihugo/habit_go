@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_go/app/habits/data/datasources/habit_datasource.dart';
 import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/check_habit_reminder_permissions_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
@@ -40,6 +42,7 @@ import 'package:habit_go/app/settings/domain/usecases/get_settings_usecase.dart'
 import 'package:habit_go/app/settings/domain/usecases/save_settings_usecase.dart';
 import 'package:habit_go/app/settings/presentation/state/settings_cubit.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
+import 'package:habit_go/core/services/notifications/notification_service.dart';
 import 'package:habit_go/core/services/storage/storage_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -129,9 +132,16 @@ class MockStorageService extends Mock implements StorageService {}
 class MockFetchHabitReminderUsecase extends Mock
     implements FetchHabitReminderUsecase {}
 
+class MockCheckHabitReminderPermissionsUsecase extends Mock
+    implements CheckHabitReminderPermissionsUsecase {}
+
 class MockHabitFormCubit extends MockCubit<HabitFormState>
     implements HabitFormCubit {}
 
 class MockGetSettingsUsecase extends Mock implements GetSettingsUsecase {}
 
 class MockSaveSettingsUsecase extends Mock implements SaveSettingsUsecase {}
+
+class MockAwesomeNotifications extends Mock implements AwesomeNotifications {}
+
+class MockNotificationsService extends Mock implements NotificationService {}

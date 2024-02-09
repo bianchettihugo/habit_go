@@ -39,12 +39,12 @@ void main() {
       'habits/domain/usecases - should call create habit from repository when id is null',
       () async {
     when(() => repository.createHabit(habit)).thenAnswer(
-      (invocation) async => Result.success(habit),
+      (invocation) async => Result.success(habit.copyWith(id: 1)),
     );
 
-    final result = await saveHabit(data: habitData1);
+    final result = await saveHabit(data: habitData3);
 
-    expect(result, Result.success(habit));
+    expect(result, Result.success(habit.copyWith(id: 1)));
     verify(() => repository.createHabit(habit)).called(1);
     verifyNever(() => repository.updateHabit(habit));
   });

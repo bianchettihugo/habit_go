@@ -52,3 +52,17 @@ class HabitRemindersRequestEvent extends Event {
   @override
   int get hashCode => habitId.hashCode;
 }
+
+class HabitRemindersChangedEvent extends Event {
+  final int habitId;
+  final List<DateTime> reminders;
+  final List<int> days;
+  final String title;
+
+  HabitRemindersChangedEvent({
+    required this.habitId,
+    required this.reminders,
+    required this.days,
+    required this.title,
+  });
+}

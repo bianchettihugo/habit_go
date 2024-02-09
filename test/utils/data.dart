@@ -64,6 +64,22 @@ final habitData2 = {
   },
 };
 
+final habitData3 = {
+  'id': null,
+  'name': 'title',
+  'repeat': '4',
+  'days': [2, 3, 2],
+  'notify': true,
+  'type': {
+    'icon': 'ic-close',
+    'color': 'primary',
+  },
+  'reminders': {
+    '1': DateTime.now(),
+    '2': DateTime.now().add(const Duration(days: 3)),
+  },
+};
+
 final habitDataUpdate = {
   'result': 'update',
   'id': 0,

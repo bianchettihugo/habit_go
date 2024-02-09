@@ -50,7 +50,7 @@ class HabitRemindersList extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TimeInput(
-                                    id: 'reminders/$index',
+                                    id: 'reminders/reminder-$index',
                                     initialValue:
                                         _getTime(state.reminders[index]),
                                   ),
