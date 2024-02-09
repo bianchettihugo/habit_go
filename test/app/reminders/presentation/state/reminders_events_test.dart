@@ -26,4 +26,15 @@ void main() {
     final event = ReminderDeleteEvent(reminder);
     expect(event.props, [reminder]);
   });
+
+  test(
+      'reminder/presentation/state - ReminderSetEvent should have reminders and habit id in props',
+      () {
+    final reminder = reminderEntity;
+    final event = ReminderSetEvent(reminders: [reminder], habitId: 1);
+    expect(event.props, [
+      [reminder],
+      1,
+    ]);
+  });
 }

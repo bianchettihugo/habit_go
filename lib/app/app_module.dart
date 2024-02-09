@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:habit_go/app/habits/domain/events/habits_events.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_bloc.dart';
 import 'package:habit_go/app/progress/presentation/state/progress_event.dart';
+import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_by_habit_id_usecase.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:habit_go/core/services/events/event_service.dart';
 
@@ -51,8 +52,18 @@ class AppModule {
     );
 
     Dependency.get<EventService>().on<HabitRemindersRequestEvent>().listen(
-      (event) {
-        Dependency.get<EventService>().add(<DateTime>[]);
+      (event) async {
+        final result = await Dependency.get<FetchRemindersByHabitIdUsecase>()
+            .call(event.habitId);
+        result.when(
+          success: (reminders) {
+            final dates = reminders.map((e) => e.time).toList();
+            Dependency.get<EventService>().add(dates);
+          },
+          failure: (filure) {
+            Dependency.get<EventService>().add(<DateTime>[]);
+          },
+        );
       },
     );
 

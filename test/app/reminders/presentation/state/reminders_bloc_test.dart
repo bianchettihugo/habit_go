@@ -6,6 +6,7 @@ import 'package:habit_go/app/reminders/domain/entities/reminder_entity.dart';
 import 'package:habit_go/app/reminders/domain/usecases/add_reminder_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/delete_reminder_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/set_habit_reminders_usecase.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_events.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_state.dart';
@@ -19,16 +20,19 @@ void main() {
   late FetchRemindersUsecase fetchRemindersUsecase;
   late DeleteReminderUsecase deleteReminderUsecase;
   late AddReminderUsecase addReminderUsecase;
+  late SetHabitRemindersUsecase setHabitRemindersUsecase;
   late RemindersBloc remindersBloc;
 
   setUp(() {
     fetchRemindersUsecase = MockFetchRemindersUsecase();
     deleteReminderUsecase = MockDeleteReminderUsecase();
     addReminderUsecase = MockAddReminderUsecase();
+    setHabitRemindersUsecase = MockSetHabitRemindersUsecase();
     remindersBloc = RemindersBloc(
       fetchRemindersUsecase: fetchRemindersUsecase,
       deleteReminderUsecase: deleteReminderUsecase,
       addReminderUsecase: addReminderUsecase,
+      setHabitRemindersUsecase: setHabitRemindersUsecase,
     );
   });
 
@@ -152,6 +156,62 @@ void main() {
     },
     seed: () => ReminderState(reminders: [reminder1, reminder2]),
     act: (bloc) => bloc.add(ReminderDeleteEvent(reminder2)),
+    expect: () => [
+      ReminderState(
+        status: ReminderStatus.toastError,
+        error: 'Error message',
+      ),
+    ],
+  );
+
+  blocTest<RemindersBloc, ReminderState>(
+    'reminder/presentation/state - emits [ReminderState(loading), ReminderState(loaded)] when ReminderSetEvent is added and SetHabitRemindersUsecase returns success',
+    build: () {
+      when(
+        () => setHabitRemindersUsecase(
+          habitId: any(named: 'habitId'),
+          reminders: any(named: 'reminders'),
+        ),
+      ).thenAnswer(
+        (_) async => Result.success([reminder3]),
+      );
+      return remindersBloc;
+    },
+    seed: () => ReminderState(reminders: [reminder1, reminder2]),
+    act: (bloc) => bloc.add(
+      ReminderSetEvent(
+        habitId: 1,
+        reminders: [reminder3],
+      ),
+    ),
+    expect: () => [
+      ReminderState(
+        reminders: [reminder3],
+        status: ReminderStatus.loaded,
+      ),
+    ],
+  );
+
+  blocTest<RemindersBloc, ReminderState>(
+    'reminder/presentation/state - emits [ReminderState(loading), ReminderState(toastError)] when ReminderSetEvent is added and SetHabitRemindersUsecase returns failure',
+    build: () {
+      when(
+        () => setHabitRemindersUsecase(
+          habitId: any(named: 'habitId'),
+          reminders: any(named: 'reminders'),
+        ),
+      ).thenAnswer(
+        (_) async => Result.failure(const Failure(message: 'Error message')),
+      );
+      return remindersBloc;
+    },
+    seed: () => ReminderState(reminders: [reminder1, reminder2]),
+    act: (bloc) => bloc.add(
+      ReminderSetEvent(
+        habitId: 1,
+        reminders: [reminder3],
+      ),
+    ),
     expect: () => [
       ReminderState(
         status: ReminderStatus.toastError,

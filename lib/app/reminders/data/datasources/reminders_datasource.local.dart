@@ -40,4 +40,17 @@ class LocalReminderDatasource extends ReminderDatasource {
     });
     return items;
   }
+
+  @override
+  Future<List<ReminderModel>> setHabitReminders({
+    required int habitId,
+    required List<ReminderModel> reminders,
+  }) async {
+    await _isar.writeTxn(() async {
+      await _isar.reminderModels.filter().habitIdEqualTo(habitId).deleteAll();
+      await _isar.reminderModels.putAll(reminders);
+    });
+
+    return getReminders();
+  }
 }
