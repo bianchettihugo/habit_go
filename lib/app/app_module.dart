@@ -50,6 +50,12 @@ class AppModule {
       },
     );
 
+    Dependency.get<EventService>().on<HabitRemindersRequestEvent>().listen(
+      (event) {
+        Dependency.get<EventService>().add(<DateTime>[]);
+      },
+    );
+
     if (kDebugMode) print('\x1B[36m-==== APP MODULE INITIALIZED ====-');
   }
 }

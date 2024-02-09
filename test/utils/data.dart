@@ -79,12 +79,38 @@ final habitDataUpdate = {
   'oldProgress': [1, 1, 1, 1, 1, 1, 1],
 };
 
+final habitDataUpdate2 = {
+  'result': 'update',
+  'id': 0,
+  'name': 'title',
+  'repeat': 5,
+  'days': [1, 1, 1, 1, 1, 1, 1],
+  'notify': false,
+  'type': {
+    'icon': 'clipboard',
+    'color': 'primary',
+  },
+  'oldRepeat': 4,
+  'oldProgress': [1, 1, 1, 1, 1, 1, 1],
+};
+
 final habitDataCreate = {
   'result': 'create',
   'name': 'title',
   'repeat': 5,
   'days': [0, 0, 0, 0, 0, 0, -1],
   'notify': true,
+  'type': {
+    'icon': 'clipboard',
+    'color': 'primary',
+  },
+};
+final habitDataCreate2 = {
+  'result': 'create',
+  'name': 'title',
+  'repeat': 5,
+  'days': [0, 0, 0, 0, 0, 0, -1],
+  'notify': false,
   'type': {
     'icon': 'clipboard',
     'color': 'primary',

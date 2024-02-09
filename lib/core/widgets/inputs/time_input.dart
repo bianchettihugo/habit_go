@@ -55,6 +55,9 @@ class _TimeInputState extends State<TimeInput> {
   @override
   void initState() {
     controller = widget.controller ?? TextEditingController();
+    if (widget.initialValue != null) {
+      controller.text = widget.initialValue!;
+    }
     error = widget.error;
     if (widget.initialValue != null) {
       controller.text = widget.initialValue!;

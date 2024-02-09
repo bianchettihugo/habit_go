@@ -7,11 +7,14 @@ import 'package:habit_go/app/habits/domain/repositories/habit_repository.dart';
 import 'package:habit_go/app/habits/domain/usecases/add_habit_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/clear_habits_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/delete_habit_usecase.dart';
+import 'package:habit_go/app/habits/domain/usecases/fetch_habit_reminders_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/fetch_habits_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/reset_habit_progress_usecase.dart';
 import 'package:habit_go/app/habits/domain/usecases/save_habit_usecase.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_bloc.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_event.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_form_cubit.dart';
+import 'package:habit_go/app/habits/presentation/state/habits_form_state.dart';
 import 'package:habit_go/app/habits/presentation/state/habits_state.dart';
 import 'package:habit_go/app/progress/data/datasources/progress_datasource.dart';
 import 'package:habit_go/app/progress/domain/repositories/progress_repository.dart';
@@ -116,3 +119,9 @@ class MockSettingsCubit extends MockCubit<SettingsEntity>
     implements SettingsCubit {}
 
 class MockStorageService extends Mock implements StorageService {}
+
+class MockFetchHabitReminderUsecase extends Mock
+    implements FetchHabitReminderUsecase {}
+
+class MockHabitFormCubit extends MockCubit<HabitFormState>
+    implements HabitFormCubit {}
