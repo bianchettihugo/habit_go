@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:flutter/foundation.dart';
 import 'package:habit_go/app/reminders/data/datasources/reminder_datasource.dart';
 import 'package:habit_go/app/reminders/data/datasources/reminders_datasource.local.dart';
@@ -5,7 +7,9 @@ import 'package:habit_go/app/reminders/data/repositories/reminder_repository_imp
 import 'package:habit_go/app/reminders/domain/repositories/reminder_repository.dart';
 import 'package:habit_go/app/reminders/domain/usecases/add_reminder_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/delete_reminder_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_by_habit_id_usecase.dart';
 import 'package:habit_go/app/reminders/domain/usecases/fetch_reminders_usecase.dart';
+import 'package:habit_go/app/reminders/domain/usecases/set_habit_reminders_usecase.dart';
 import 'package:habit_go/app/reminders/presentation/state/reminders_bloc.dart';
 import 'package:habit_go/core/services/dependency/dependency_service.dart';
 import 'package:isar/isar.dart';
@@ -24,8 +28,14 @@ class RemindersModule {
       ),
     );
 
-    Dependency.register<AddReminderUsecase>(
-      AddReminderUsecaseImpl(
+    Dependency.register<FetchRemindersUsecase>(
+      FetchRemindersUsecaseImpl(
+        repository: Dependency.get<ReminderRepository>(),
+      ),
+    );
+
+    Dependency.register<FetchRemindersByHabitIdUsecase>(
+      FetchRemindersByHabitIdUsecaseImpl(
         repository: Dependency.get<ReminderRepository>(),
       ),
     );
@@ -36,17 +46,24 @@ class RemindersModule {
       ),
     );
 
-    Dependency.register<FetchRemindersUsecase>(
-      FetchRemindersUsecaseImpl(
+    Dependency.register<AddReminderUsecase>(
+      AddReminderUsecaseImpl(
         repository: Dependency.get<ReminderRepository>(),
       ),
     );
 
-    Dependency.registerLazy<RemindersBloc>(
-      RemindersBloc(
+    Dependency.register<SetHabitRemindersUsecase>(
+      SetHabitRemindersUsecaseImpl(
+        repository: Dependency.get<ReminderRepository>(),
+      ),
+    );
+
+    Dependency.registerLazy(
+      () => RemindersBloc(
         fetchRemindersUsecase: Dependency.get<FetchRemindersUsecase>(),
         deleteReminderUsecase: Dependency.get<DeleteReminderUsecase>(),
         addReminderUsecase: Dependency.get<AddReminderUsecase>(),
+        setHabitRemindersUsecase: Dependency.get<SetHabitRemindersUsecase>(),
       ),
     );
 

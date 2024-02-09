@@ -76,7 +76,8 @@ class HabitGoApp extends StatelessWidget {
           ),
           BlocProvider<SettingsCubit>(
             lazy: false,
-            create: (BuildContext context) => Dependency.get<SettingsCubit>(),
+            create: (BuildContext context) =>
+                Dependency.get<SettingsCubit>()..getSettings(),
           ),
         ],
         child: const HabitGo(),
